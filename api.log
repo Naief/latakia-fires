@@ -435,3 +435,687 @@
 2025-07-12 17:17:31,337 INFO Served fetch_status.json
 2025-07-12 17:17:31,379 INFO Served 364 features for model viirs
 2025-07-12 17:17:31,379 INFO Served fetch_status.json
+2025-07-12 17:18:31,474 INFO Served fetch_status.json
+2025-07-12 17:18:31,498 INFO Served 364 features for model viirs
+2025-07-12 17:18:31,502 INFO Served fetch_status.json
+2025-07-12 17:19:31,479 INFO Served fetch_status.json
+2025-07-12 17:19:31,509 INFO Served 364 features for model viirs
+2025-07-12 17:19:31,518 INFO Served fetch_status.json
+2025-07-12 17:20:31,470 INFO Served fetch_status.json
+2025-07-12 17:20:31,504 INFO Served 364 features for model viirs
+2025-07-12 17:20:31,505 INFO Served fetch_status.json
+2025-07-12 17:21:31,470 INFO Served fetch_status.json
+2025-07-12 17:21:31,503 INFO Served 364 features for model viirs
+2025-07-12 17:21:31,510 INFO Served fetch_status.json
+2025-07-12 17:22:31,467 INFO Served fetch_status.json
+2025-07-12 17:22:31,487 INFO Served 364 features for model viirs
+2025-07-12 17:22:31,493 INFO Served fetch_status.json
+2025-07-12 17:23:31,471 INFO Served fetch_status.json
+2025-07-12 17:23:31,503 INFO Served fetch_status.json
+2025-07-12 17:23:31,505 INFO Served 364 features for model viirs
+2025-07-12 17:24:31,466 INFO Served fetch_status.json
+2025-07-12 17:24:31,496 INFO Served fetch_status.json
+2025-07-12 17:24:31,499 INFO Served 364 features for model viirs
+2025-07-12 17:25:32,468 INFO Served fetch_status.json
+2025-07-12 17:25:32,481 INFO Served fetch_status.json
+2025-07-12 17:25:32,502 INFO Served 364 features for model viirs
+2025-07-12 17:26:33,466 INFO Served fetch_status.json
+2025-07-12 17:26:33,492 INFO Served fetch_status.json
+2025-07-12 17:26:33,500 INFO Served 364 features for model viirs
+2025-07-12 17:27:34,465 INFO Served fetch_status.json
+2025-07-12 17:27:34,499 INFO Served 364 features for model viirs
+2025-07-12 17:27:34,506 INFO Served fetch_status.json
+2025-07-12 17:28:35,464 INFO Served fetch_status.json
+2025-07-12 17:28:35,498 INFO Served fetch_status.json
+2025-07-12 17:28:35,499 INFO Served 364 features for model viirs
+2025-07-12 17:29:36,462 INFO Served fetch_status.json
+2025-07-12 17:29:36,497 INFO Served 364 features for model viirs
+2025-07-12 17:29:36,497 INFO Served fetch_status.json
+2025-07-12 17:30:37,469 INFO Served fetch_status.json
+2025-07-12 17:30:37,483 INFO Served 364 features for model viirs
+2025-07-12 17:30:37,488 INFO Served fetch_status.json
+2025-07-12 17:31:38,485 INFO Served fetch_status.json
+2025-07-12 17:31:38,523 INFO Served 364 features for model viirs
+2025-07-12 17:31:38,523 INFO Served fetch_status.json
+2025-07-12 17:32:39,523 INFO Served 379 features for model viirs
+2025-07-12 17:32:39,523 INFO Served fetch_status.json
+2025-07-12 17:32:39,531 INFO Served fetch_status.json
+2025-07-12 17:33:39,557 INFO Served 379 features for model viirs
+2025-07-12 17:33:39,564 INFO Served fetch_status.json
+2025-07-12 17:33:39,566 INFO Served fetch_status.json
+2025-07-12 17:34:39,550 INFO Served 379 features for model viirs
+2025-07-12 17:34:39,557 INFO Served fetch_status.json
+2025-07-12 17:34:39,561 INFO Served fetch_status.json
+2025-07-12 17:35:39,479 INFO Served fetch_status.json
+2025-07-12 17:35:39,511 INFO Served 379 features for model viirs
+2025-07-12 17:35:39,511 INFO Served fetch_status.json
+2025-07-12 17:36:39,542 INFO Served 379 features for model viirs
+2025-07-12 17:36:39,547 INFO Served fetch_status.json
+2025-07-12 17:36:39,550 INFO Served fetch_status.json
+2025-07-12 17:37:39,479 INFO Served fetch_status.json
+2025-07-12 17:37:39,495 INFO Served fetch_status.json
+2025-07-12 17:37:39,515 INFO Served 379 features for model viirs
+2025-07-12 17:38:39,486 INFO Served fetch_status.json
+2025-07-12 17:38:39,502 INFO Served 379 features for model viirs
+2025-07-12 17:38:39,502 INFO Served fetch_status.json
+2025-07-12 17:39:39,479 INFO Served fetch_status.json
+2025-07-12 17:39:39,510 INFO Served 379 features for model viirs
+2025-07-12 17:39:39,510 INFO Served fetch_status.json
+2025-07-12 17:40:39,472 INFO Served fetch_status.json
+2025-07-12 17:40:39,478 INFO Served fetch_status.json
+2025-07-12 17:40:39,494 INFO Served 379 features for model viirs
+2025-07-12 17:41:39,477 INFO Served fetch_status.json
+2025-07-12 17:41:39,502 INFO Served 379 features for model viirs
+2025-07-12 17:41:39,502 INFO Served fetch_status.json
+2025-07-12 17:42:39,499 INFO Served 379 features for model viirs
+2025-07-12 17:42:39,504 INFO Served fetch_status.json
+2025-07-12 17:42:39,507 INFO Served fetch_status.json
+2025-07-12 17:43:39,473 INFO Served fetch_status.json
+2025-07-12 17:43:39,502 INFO Served 379 features for model viirs
+2025-07-12 17:43:39,502 INFO Served fetch_status.json
+2025-07-12 17:44:39,471 INFO Served fetch_status.json
+2025-07-12 17:44:39,475 INFO Served fetch_status.json
+2025-07-12 17:44:39,493 INFO Served 379 features for model viirs
+2025-07-12 17:45:39,472 INFO Served fetch_status.json
+2025-07-12 17:45:39,495 INFO Served 379 features for model viirs
+2025-07-12 17:45:39,501 INFO Served fetch_status.json
+2025-07-12 17:46:39,574 INFO Served fetch_status.json
+2025-07-12 17:46:39,584 INFO Served fetch_status.json
+2025-07-12 17:46:39,601 INFO Served 379 features for model viirs
+2025-07-12 17:47:39,467 INFO Served fetch_status.json
+2025-07-12 17:47:39,490 INFO Served fetch_status.json
+2025-07-12 17:47:39,501 INFO Served 379 features for model viirs
+2025-07-12 17:48:39,543 INFO Served fetch_status.json
+2025-07-12 17:48:39,560 INFO Served 379 features for model viirs
+2025-07-12 17:48:39,571 INFO Served fetch_status.json
+2025-07-12 17:49:39,457 INFO Served fetch_status.json
+2025-07-12 17:49:39,481 INFO Served 379 features for model viirs
+2025-07-12 17:49:39,488 INFO Served fetch_status.json
+2025-07-12 17:50:39,505 INFO Served fetch_status.json
+2025-07-12 17:50:39,511 INFO Served 379 features for model viirs
+2025-07-12 17:50:39,521 INFO Served fetch_status.json
+2025-07-12 17:51:39,544 INFO Served 379 features for model viirs
+2025-07-12 17:51:39,549 INFO Served fetch_status.json
+2025-07-12 17:51:39,551 INFO Served fetch_status.json
+2025-07-12 17:52:39,466 INFO Served fetch_status.json
+2025-07-12 17:52:39,496 INFO Served 379 features for model viirs
+2025-07-12 17:52:39,501 INFO Served fetch_status.json
+2025-07-12 17:53:39,492 INFO Served fetch_status.json
+2025-07-12 17:53:39,527 INFO Served 379 features for model viirs
+2025-07-12 17:53:39,533 INFO Served fetch_status.json
+2025-07-12 17:54:39,455 INFO Served fetch_status.json
+2025-07-12 17:54:39,480 INFO Served 379 features for model viirs
+2025-07-12 17:54:39,487 INFO Served fetch_status.json
+2025-07-12 17:55:39,462 INFO Served fetch_status.json
+2025-07-12 17:55:39,502 INFO Served 379 features for model viirs
+2025-07-12 17:55:39,502 INFO Served fetch_status.json
+2025-07-12 17:56:39,479 INFO Served fetch_status.json
+2025-07-12 17:56:39,515 INFO Served 379 features for model viirs
+2025-07-12 17:56:39,524 INFO Served fetch_status.json
+2025-07-12 17:57:39,477 INFO Served fetch_status.json
+2025-07-12 17:57:39,500 INFO Served 379 features for model viirs
+2025-07-12 17:57:39,500 INFO Served fetch_status.json
+2025-07-12 17:58:39,466 INFO Served fetch_status.json
+2025-07-12 17:58:39,492 INFO Served 379 features for model viirs
+2025-07-12 17:58:39,497 INFO Served fetch_status.json
+2025-07-12 17:59:39,461 INFO Served 379 features for model viirs
+2025-07-12 17:59:39,461 INFO Served fetch_status.json
+2025-07-12 17:59:39,469 INFO Served fetch_status.json
+2025-07-12 18:00:39,492 INFO Served 379 features for model viirs
+2025-07-12 18:00:39,492 INFO Served fetch_status.json
+2025-07-12 18:00:39,500 INFO Served fetch_status.json
+2025-07-12 18:01:39,552 INFO Served 379 features for model viirs
+2025-07-12 18:01:39,552 INFO Served fetch_status.json
+2025-07-12 18:01:39,560 INFO Served fetch_status.json
+2025-07-12 18:02:39,504 INFO Served 379 features for model viirs
+2025-07-12 18:02:39,505 INFO Served fetch_status.json
+2025-07-12 18:02:39,515 INFO Served fetch_status.json
+2025-07-12 18:03:39,507 INFO Served 379 features for model viirs
+2025-07-12 18:03:39,508 INFO Served fetch_status.json
+2025-07-12 18:03:39,516 INFO Served fetch_status.json
+2025-07-12 18:04:39,457 INFO Served fetch_status.json
+2025-07-12 18:04:39,497 INFO Served fetch_status.json
+2025-07-12 18:04:39,509 INFO Served 379 features for model viirs
+2025-07-12 18:05:39,472 INFO Served 379 features for model viirs
+2025-07-12 18:05:39,477 INFO Served fetch_status.json
+2025-07-12 18:05:39,479 INFO Served fetch_status.json
+2025-07-12 18:06:39,502 INFO Served fetch_status.json
+2025-07-12 18:06:39,521 INFO Served fetch_status.json
+2025-07-12 18:06:39,534 INFO Served 379 features for model viirs
+2025-07-12 18:07:39,441 INFO Served fetch_status.json
+2025-07-12 18:07:39,465 INFO Served fetch_status.json
+2025-07-12 18:07:39,467 INFO Served 379 features for model viirs
+2025-07-12 18:08:39,519 INFO Served 379 features for model viirs
+2025-07-12 18:08:39,520 INFO Served fetch_status.json
+2025-07-12 18:08:39,528 INFO Served fetch_status.json
+2025-07-12 18:09:39,482 INFO Served fetch_status.json
+2025-07-12 18:09:39,498 INFO Served 379 features for model viirs
+2025-07-12 18:09:39,508 INFO Served fetch_status.json
+2025-07-12 18:10:39,480 INFO Served 379 features for model viirs
+2025-07-12 18:10:39,487 INFO Served fetch_status.json
+2025-07-12 18:10:39,489 INFO Served fetch_status.json
+2025-07-12 18:11:39,525 INFO Served 379 features for model viirs
+2025-07-12 18:11:39,540 INFO Served fetch_status.json
+2025-07-12 18:11:39,543 INFO Served fetch_status.json
+2025-07-12 18:12:39,437 INFO Served fetch_status.json
+2025-07-12 18:12:39,461 INFO Served 379 features for model viirs
+2025-07-12 18:12:39,468 INFO Served fetch_status.json
+2025-07-12 18:13:39,477 INFO Served 379 features for model viirs
+2025-07-12 18:13:39,477 INFO Served fetch_status.json
+2025-07-12 18:13:39,484 INFO Served fetch_status.json
+2025-07-12 18:14:39,473 INFO Served fetch_status.json
+2025-07-12 18:14:39,505 INFO Served 379 features for model viirs
+2025-07-12 18:14:39,512 INFO Served fetch_status.json
+2025-07-12 18:15:39,476 INFO Served 379 features for model viirs
+2025-07-12 18:15:39,476 INFO Served fetch_status.json
+2025-07-12 18:15:39,485 INFO Served fetch_status.json
+2025-07-12 18:16:39,493 INFO Served 379 features for model viirs
+2025-07-12 18:16:39,494 INFO Served fetch_status.json
+2025-07-12 18:16:39,501 INFO Served fetch_status.json
+2025-07-12 18:17:39,662 INFO Served 379 features for model viirs
+2025-07-12 18:17:39,663 INFO Served fetch_status.json
+2025-07-12 18:17:39,674 INFO Served fetch_status.json
+2025-07-12 18:18:39,671 INFO Served 379 features for model viirs
+2025-07-12 18:18:39,679 INFO Served fetch_status.json
+2025-07-12 18:18:39,697 INFO Served fetch_status.json
+2025-07-12 18:19:39,678 INFO Served 379 features for model viirs
+2025-07-12 18:19:39,679 INFO Served fetch_status.json
+2025-07-12 18:19:39,686 INFO Served fetch_status.json
+2025-07-12 18:20:39,605 INFO Served fetch_status.json
+2025-07-12 18:20:39,631 INFO Served 379 features for model viirs
+2025-07-12 18:20:39,636 INFO Served fetch_status.json
+2025-07-12 18:21:31,440 INFO Served fetch_status.json
+2025-07-12 18:21:31,454 INFO Served 379 features for model viirs
+2025-07-12 18:21:31,459 INFO Served fetch_status.json
+2025-07-12 18:22:31,444 INFO Served fetch_status.json
+2025-07-12 18:22:31,463 INFO Served fetch_status.json
+2025-07-12 18:22:31,474 INFO Served 379 features for model viirs
+2025-07-12 18:23:31,447 INFO Served fetch_status.json
+2025-07-12 18:23:31,484 INFO Served 379 features for model viirs
+2025-07-12 18:23:31,484 INFO Served fetch_status.json
+2025-07-12 18:24:31,440 INFO Served fetch_status.json
+2025-07-12 18:24:31,463 INFO Served fetch_status.json
+2025-07-12 18:24:31,473 INFO Served 379 features for model viirs
+2025-07-12 18:25:31,446 INFO Served fetch_status.json
+2025-07-12 18:25:31,473 INFO Served 379 features for model viirs
+2025-07-12 18:25:31,477 INFO Served fetch_status.json
+2025-07-12 18:26:31,443 INFO Served fetch_status.json
+2025-07-12 18:26:31,467 INFO Served 379 features for model viirs
+2025-07-12 18:26:31,468 INFO Served fetch_status.json
+2025-07-12 18:27:31,448 INFO Served fetch_status.json
+2025-07-12 18:27:31,481 INFO Served 379 features for model viirs
+2025-07-12 18:27:31,487 INFO Served fetch_status.json
+2025-07-12 18:28:31,443 INFO Served fetch_status.json
+2025-07-12 18:28:31,460 INFO Served fetch_status.json
+2025-07-12 18:28:31,471 INFO Served 379 features for model viirs
+2025-07-12 18:29:31,440 INFO Served fetch_status.json
+2025-07-12 18:29:31,462 INFO Served 379 features for model viirs
+2025-07-12 18:29:31,468 INFO Served fetch_status.json
+2025-07-12 18:29:47,786 INFO Served 379 features for model viirs
+2025-07-12 18:29:48,550 INFO Served 223 features for model modis
+2025-07-12 18:30:31,449 INFO Served fetch_status.json
+2025-07-12 18:30:31,472 INFO Served 223 features for model modis
+2025-07-12 18:30:31,476 INFO Served fetch_status.json
+2025-07-12 18:31:31,446 INFO Served fetch_status.json
+2025-07-12 18:31:31,471 INFO Served 223 features for model modis
+2025-07-12 18:31:31,477 INFO Served fetch_status.json
+2025-07-12 18:32:31,432 INFO Served fetch_status.json
+2025-07-12 18:32:31,454 INFO Served 223 features for model modis
+2025-07-12 18:32:31,460 INFO Served fetch_status.json
+2025-07-12 18:33:31,437 INFO Served fetch_status.json
+2025-07-12 18:33:31,463 INFO Served 223 features for model modis
+2025-07-12 18:33:31,468 INFO Served fetch_status.json
+2025-07-12 18:34:31,432 INFO Served fetch_status.json
+2025-07-12 18:34:31,453 INFO Served 223 features for model modis
+2025-07-12 18:34:31,454 INFO Served fetch_status.json
+2025-07-12 18:35:31,430 INFO Served fetch_status.json
+2025-07-12 18:35:31,451 INFO Served 223 features for model modis
+2025-07-12 18:35:31,456 INFO Served fetch_status.json
+2025-07-12 18:36:31,433 INFO Served fetch_status.json
+2025-07-12 18:36:31,449 INFO Served 223 features for model modis
+2025-07-12 18:36:31,453 INFO Served fetch_status.json
+2025-07-12 18:36:55,257 INFO Served 379 features for model viirs
+2025-07-12 18:36:59,469 INFO Served 223 features for model modis
+2025-07-12 18:37:31,436 INFO Served fetch_status.json
+2025-07-12 18:37:31,458 INFO Served 223 features for model modis
+2025-07-12 18:37:31,462 INFO Served fetch_status.json
+2025-07-12 18:38:31,574 INFO Served fetch_status.json
+2025-07-12 18:38:31,594 INFO Served 223 features for model modis
+2025-07-12 18:38:31,598 INFO Served fetch_status.json
+2025-07-12 18:39:32,578 INFO Served fetch_status.json
+2025-07-12 18:39:32,604 INFO Served 223 features for model modis
+2025-07-12 18:39:32,604 INFO Served fetch_status.json
+2025-07-12 18:40:04,819 INFO Served 379 features for model viirs
+2025-07-12 18:40:11,764 INFO Served 223 features for model modis
+2025-07-12 18:40:31,434 INFO Served fetch_status.json
+2025-07-12 18:40:31,452 INFO Served 223 features for model modis
+2025-07-12 18:40:31,457 INFO Served fetch_status.json
+2025-07-12 18:40:34,406 INFO Served 379 features for model viirs
+2025-07-12 18:41:31,438 INFO Served fetch_status.json
+2025-07-12 18:41:31,453 INFO Served fetch_status.json
+2025-07-12 18:41:31,477 INFO Served 379 features for model viirs
+2025-07-12 18:42:31,438 INFO Served fetch_status.json
+2025-07-12 18:42:31,446 INFO Served fetch_status.json
+2025-07-12 18:42:31,471 INFO Served 379 features for model viirs
+2025-07-12 18:43:31,432 INFO Served fetch_status.json
+2025-07-12 18:43:31,455 INFO Served 379 features for model viirs
+2025-07-12 18:43:31,461 INFO Served fetch_status.json
+2025-07-12 18:44:03,191 INFO Served fetch_status.json
+2025-07-12 18:44:03,219 INFO Served fetch_status.json
+2025-07-12 18:44:03,240 INFO Served 379 features for model viirs
+2025-07-12 18:44:31,090 INFO Served fetch_status.json
+2025-07-12 18:44:31,132 INFO Served fetch_status.json
+2025-07-12 18:44:31,243 INFO Served 379 features for model viirs
+2025-07-12 18:44:31,347 INFO Served fetch_status.json
+2025-07-12 18:44:31,352 INFO Served fetch_status.json
+2025-07-12 18:44:31,382 INFO Served 379 features for model viirs
+2025-07-12 18:45:31,351 INFO Served fetch_status.json
+2025-07-12 18:45:31,360 INFO Served fetch_status.json
+2025-07-12 18:45:31,373 INFO Served 379 features for model viirs
+2025-07-12 18:46:31,350 INFO Served fetch_status.json
+2025-07-12 18:46:31,370 INFO Served 379 features for model viirs
+2025-07-12 18:46:31,376 INFO Served fetch_status.json
+2025-07-12 18:47:04,719 INFO Served fetch_status.json
+2025-07-12 18:47:04,763 INFO Served fetch_status.json
+2025-07-12 18:47:04,791 INFO Served 379 features for model viirs
+2025-07-12 18:48:04,684 INFO Served fetch_status.json
+2025-07-12 18:48:04,703 INFO Served 379 features for model viirs
+2025-07-12 18:48:04,711 INFO Served fetch_status.json
+2025-07-12 18:49:04,685 INFO Served fetch_status.json
+2025-07-12 18:49:04,703 INFO Served 379 features for model viirs
+2025-07-12 18:49:04,704 INFO Served fetch_status.json
+2025-07-12 18:49:17,390 INFO Served fetch_status.json
+2025-07-12 18:49:17,414 INFO Served 379 features for model viirs
+2025-07-12 18:49:17,414 INFO Served fetch_status.json
+2025-07-12 18:50:17,402 INFO Served fetch_status.json
+2025-07-12 18:50:17,433 INFO Served 379 features for model viirs
+2025-07-12 18:50:17,440 INFO Served fetch_status.json
+2025-07-12 18:51:17,395 INFO Served fetch_status.json
+2025-07-12 18:51:17,422 INFO Served 379 features for model viirs
+2025-07-12 18:51:17,422 INFO Served fetch_status.json
+2025-07-12 18:51:35,630 INFO Served fetch_status.json
+2025-07-12 18:51:35,668 INFO Served 379 features for model viirs
+2025-07-12 18:51:35,669 INFO Served fetch_status.json
+2025-07-12 18:52:35,639 INFO Served fetch_status.json
+2025-07-12 18:52:35,670 INFO Served 379 features for model viirs
+2025-07-12 18:52:35,678 INFO Served fetch_status.json
+2025-07-12 18:53:35,635 INFO Served fetch_status.json
+2025-07-12 18:53:35,647 INFO Served fetch_status.json
+2025-07-12 18:53:35,664 INFO Served 379 features for model viirs
+2025-07-12 18:54:08,382 INFO Served fetch_status.json
+2025-07-12 18:54:08,414 INFO Served 379 features for model viirs
+2025-07-12 18:54:08,419 INFO Served fetch_status.json
+2025-07-12 18:55:08,383 INFO Served fetch_status.json
+2025-07-12 18:55:08,399 INFO Served 379 features for model viirs
+2025-07-12 18:55:08,405 INFO Served fetch_status.json
+2025-07-12 18:56:08,412 INFO Served fetch_status.json
+2025-07-12 18:56:08,417 INFO Served fetch_status.json
+2025-07-12 18:56:08,445 INFO Served 379 features for model viirs
+2025-07-12 18:57:08,381 INFO Served fetch_status.json
+2025-07-12 18:57:08,400 INFO Served 379 features for model viirs
+2025-07-12 18:57:08,406 INFO Served fetch_status.json
+2025-07-12 18:57:28,499 INFO Served fetch_status.json
+2025-07-12 18:57:28,507 INFO Served fetch_status.json
+2025-07-12 18:57:28,554 INFO Served 379 features for model viirs
+2025-07-12 18:57:28,706 INFO Served fetch_status.json
+2025-07-12 18:57:28,733 INFO Served 379 features for model viirs
+2025-07-12 18:57:28,738 INFO Served fetch_status.json
+2025-07-12 18:58:28,712 INFO Served fetch_status.json
+2025-07-12 18:58:28,735 INFO Served fetch_status.json
+2025-07-12 18:58:28,750 INFO Served 379 features for model viirs
+2025-07-12 18:58:58,816 INFO Served fetch_status.json
+2025-07-12 18:58:58,853 INFO Served fetch_status.json
+2025-07-12 18:58:58,865 INFO Served 379 features for model viirs
+2025-07-12 18:59:31,687 INFO Served fetch_status.json
+2025-07-12 18:59:31,735 INFO Served fetch_status.json
+2025-07-12 18:59:31,747 INFO Served 379 features for model viirs
+2025-07-12 19:00:31,147 INFO Served fetch_status.json
+2025-07-12 19:00:31,179 INFO Served fetch_status.json
+2025-07-12 19:00:31,199 INFO Served 379 features for model viirs
+2025-07-12 19:00:35,015 INFO Served fetch_status.json
+2025-07-12 19:00:35,021 INFO Served fetch_status.json
+2025-07-12 19:00:35,064 INFO Served 379 features for model viirs
+2025-07-12 19:00:41,434 INFO Served fetch_status.json
+2025-07-12 19:00:41,485 INFO Served fetch_status.json
+2025-07-12 19:00:41,514 INFO Served 379 features for model viirs
+2025-07-12 19:00:42,691 INFO Served fetch_status.json
+2025-07-12 19:00:42,698 INFO Served fetch_status.json
+2025-07-12 19:00:42,724 INFO Served 379 features for model viirs
+2025-07-12 19:00:44,773 INFO Served fetch_status.json
+2025-07-12 19:00:44,804 INFO Served fetch_status.json
+2025-07-12 19:00:44,814 INFO Served 379 features for model viirs
+2025-07-12 19:00:45,079 INFO Served fetch_status.json
+2025-07-12 19:00:45,084 INFO Served fetch_status.json
+2025-07-12 19:00:45,135 INFO Served 379 features for model viirs
+2025-07-12 19:00:45,501 INFO Served fetch_status.json
+2025-07-12 19:00:45,546 INFO Served fetch_status.json
+2025-07-12 19:00:45,577 INFO Served 379 features for model viirs
+2025-07-12 19:00:46,418 INFO Served fetch_status.json
+2025-07-12 19:00:46,443 INFO Served fetch_status.json
+2025-07-12 19:00:46,479 INFO Served 379 features for model viirs
+2025-07-12 19:00:46,980 INFO Served fetch_status.json
+2025-07-12 19:00:47,014 INFO Served 379 features for model viirs
+2025-07-12 19:00:47,028 INFO Served fetch_status.json
+2025-07-12 19:00:53,847 INFO Served fetch_status.json
+2025-07-12 19:00:53,878 INFO Served fetch_status.json
+2025-07-12 19:00:53,894 INFO Served 379 features for model viirs
+2025-07-12 19:00:54,045 INFO Served fetch_status.json
+2025-07-12 19:00:54,061 INFO Served fetch_status.json
+2025-07-12 19:00:54,089 INFO Served 379 features for model viirs
+2025-07-12 19:00:54,179 INFO Served fetch_status.json
+2025-07-12 19:00:54,183 INFO Served fetch_status.json
+2025-07-12 19:00:54,216 INFO Served 379 features for model viirs
+2025-07-12 19:00:54,300 INFO Served fetch_status.json
+2025-07-12 19:00:54,306 INFO Served fetch_status.json
+2025-07-12 19:00:54,339 INFO Served 379 features for model viirs
+2025-07-12 19:00:54,535 INFO Served fetch_status.json
+2025-07-12 19:00:54,571 INFO Served fetch_status.json
+2025-07-12 19:00:54,578 INFO Served 379 features for model viirs
+2025-07-12 19:00:54,649 INFO Served fetch_status.json
+2025-07-12 19:00:54,655 INFO Served fetch_status.json
+2025-07-12 19:00:54,693 INFO Served 379 features for model viirs
+2025-07-12 19:00:54,736 INFO Served fetch_status.json
+2025-07-12 19:00:54,760 INFO Served fetch_status.json
+2025-07-12 19:00:54,786 INFO Served 379 features for model viirs
+2025-07-12 19:00:54,868 INFO Served fetch_status.json
+2025-07-12 19:00:54,900 INFO Served fetch_status.json
+2025-07-12 19:00:54,904 INFO Served 379 features for model viirs
+2025-07-12 19:00:55,093 INFO Served fetch_status.json
+2025-07-12 19:00:55,133 INFO Served fetch_status.json
+2025-07-12 19:00:55,142 INFO Served 379 features for model viirs
+2025-07-12 19:00:55,213 INFO Served fetch_status.json
+2025-07-12 19:00:55,260 INFO Served 379 features for model viirs
+2025-07-12 19:00:55,260 INFO Served fetch_status.json
+2025-07-12 19:00:55,334 INFO Served fetch_status.json
+2025-07-12 19:00:55,358 INFO Served fetch_status.json
+2025-07-12 19:00:55,380 INFO Served 379 features for model viirs
+2025-07-12 19:00:55,403 INFO Served fetch_status.json
+2025-07-12 19:00:55,438 INFO Served 379 features for model viirs
+2025-07-12 19:00:55,444 INFO Served fetch_status.json
+2025-07-12 19:01:12,650 INFO Served 223 features for model modis
+2025-07-12 19:01:12,716 INFO Served 223 features for model modis
+2025-07-12 19:01:13,383 INFO Served 379 features for model viirs
+2025-07-12 19:01:13,899 INFO Served 223 features for model modis
+2025-07-12 19:01:14,516 INFO Served 379 features for model viirs
+2025-07-12 19:01:17,050 INFO Served 223 features for model modis
+2025-07-12 19:01:17,931 INFO Served 379 features for model viirs
+2025-07-12 19:01:18,569 INFO Served 223 features for model modis
+2025-07-12 19:01:19,302 INFO Served 223 features for model modis
+2025-07-12 19:01:20,253 INFO Served 223 features for model modis
+2025-07-12 19:01:34,307 INFO Served 379 features for model viirs
+2025-07-12 19:01:55,405 INFO Served fetch_status.json
+2025-07-12 19:01:55,411 INFO Served fetch_status.json
+2025-07-12 19:01:55,430 INFO Served 379 features for model viirs
+2025-07-12 19:02:55,490 INFO Served fetch_status.json
+2025-07-12 19:02:55,503 INFO Served fetch_status.json
+2025-07-12 19:02:55,530 INFO Served 379 features for model viirs
+2025-07-12 19:03:48,283 INFO Served fetch_status.json
+2025-07-12 19:03:48,317 INFO Served fetch_status.json
+2025-07-12 19:03:48,335 INFO Served 379 features for model viirs
+2025-07-12 19:03:49,210 INFO Served fetch_status.json
+2025-07-12 19:03:49,267 INFO Served fetch_status.json
+2025-07-12 19:03:49,287 INFO Served 379 features for model viirs
+2025-07-12 19:04:43,683 INFO Served fetch_status.json
+2025-07-12 19:04:43,742 INFO Served fetch_status.json
+2025-07-12 19:04:43,855 INFO Served 379 features for model viirs
+2025-07-12 19:05:08,564 INFO Served fetch_status.json
+2025-07-12 19:05:08,610 INFO Served fetch_status.json
+2025-07-12 19:05:08,644 INFO Served 379 features for model viirs
+2025-07-12 19:05:09,007 INFO Served fetch_status.json
+2025-07-12 19:05:09,019 INFO Served fetch_status.json
+2025-07-12 19:05:09,091 INFO Served 379 features for model viirs
+2025-07-12 19:05:09,367 INFO Served fetch_status.json
+2025-07-12 19:05:09,390 INFO Served fetch_status.json
+2025-07-12 19:05:09,425 INFO Served 379 features for model viirs
+2025-07-12 19:05:09,840 INFO Served fetch_status.json
+2025-07-12 19:05:09,872 INFO Served fetch_status.json
+2025-07-12 19:05:09,894 INFO Served 379 features for model viirs
+2025-07-12 19:05:56,862 INFO Served fetch_status.json
+2025-07-12 19:05:56,898 INFO Served fetch_status.json
+2025-07-12 19:05:56,992 INFO Served 379 features for model viirs
+2025-07-12 19:05:57,354 INFO Served fetch_status.json
+2025-07-12 19:05:57,376 INFO Served fetch_status.json
+2025-07-12 19:05:57,447 INFO Served 379 features for model viirs
+2025-07-12 19:05:57,896 INFO Served fetch_status.json
+2025-07-12 19:05:57,938 INFO Served fetch_status.json
+2025-07-12 19:05:57,964 INFO Served 379 features for model viirs
+2025-07-12 19:06:54,235 INFO Served fetch_status.json
+2025-07-12 19:06:54,430 INFO Served fetch_status.json
+2025-07-12 19:06:54,726 INFO Served 379 features for model viirs
+2025-07-12 19:07:21,571 INFO Served fetch_status.json
+2025-07-12 19:07:21,622 INFO Served fetch_status.json
+2025-07-12 19:07:21,694 INFO Served 379 features for model viirs
+2025-07-12 19:07:25,569 INFO Served fetch_status.json
+2025-07-12 19:07:25,579 INFO Served fetch_status.json
+2025-07-12 19:07:25,626 INFO Served 379 features for model viirs
+2025-07-12 19:07:26,412 INFO Served fetch_status.json
+2025-07-12 19:07:26,449 INFO Served fetch_status.json
+2025-07-12 19:07:26,477 INFO Served 379 features for model viirs
+2025-07-12 19:07:27,359 INFO Served fetch_status.json
+2025-07-12 19:07:27,464 INFO Served fetch_status.json
+2025-07-12 19:07:27,555 INFO Served 379 features for model viirs
+2025-07-12 19:07:27,953 INFO Served fetch_status.json
+2025-07-12 19:07:27,976 INFO Served fetch_status.json
+2025-07-12 19:07:28,016 INFO Served 379 features for model viirs
+2025-07-12 19:07:28,689 INFO Served fetch_status.json
+2025-07-12 19:07:28,740 INFO Served fetch_status.json
+2025-07-12 19:07:28,751 INFO Served 379 features for model viirs
+2025-07-12 19:07:29,326 INFO Served fetch_status.json
+2025-07-12 19:07:29,378 INFO Served fetch_status.json
+2025-07-12 19:07:29,386 INFO Served 379 features for model viirs
+2025-07-12 19:07:39,832 INFO Served fetch_status.json
+2025-07-12 19:07:39,859 INFO Served fetch_status.json
+2025-07-12 19:07:39,912 INFO Served 379 features for model viirs
+2025-07-12 19:08:39,841 INFO Served fetch_status.json
+2025-07-12 19:08:39,860 INFO Served fetch_status.json
+2025-07-12 19:08:39,880 INFO Served 379 features for model viirs
+2025-07-12 19:08:58,201 INFO Served fetch_status.json
+2025-07-12 19:08:58,232 INFO Served fetch_status.json
+2025-07-12 19:08:58,271 INFO Served 379 features for model viirs
+2025-07-12 19:08:58,944 INFO Served fetch_status.json
+2025-07-12 19:08:58,968 INFO Served fetch_status.json
+2025-07-12 19:08:59,008 INFO Served 379 features for model viirs
+2025-07-12 19:09:01,987 INFO Served fetch_status.json
+2025-07-12 19:09:01,999 INFO Served fetch_status.json
+2025-07-12 19:09:02,056 INFO Served 379 features for model viirs
+2025-07-12 19:09:08,302 INFO Served fetch_status.json
+2025-07-12 19:09:08,316 INFO Served fetch_status.json
+2025-07-12 19:09:08,348 INFO Served 379 features for model viirs
+2025-07-12 19:09:12,374 INFO Served 223 features for model modis
+2025-07-12 19:09:13,456 INFO Served 379 features for model viirs
+2025-07-12 19:09:27,672 INFO Served fetch_status.json
+2025-07-12 19:09:27,696 INFO Served fetch_status.json
+2025-07-12 19:09:27,728 INFO Served 379 features for model viirs
+2025-07-12 19:09:28,580 INFO Served fetch_status.json
+2025-07-12 19:09:28,604 INFO Served fetch_status.json
+2025-07-12 19:09:28,634 INFO Served 379 features for model viirs
+2025-07-12 19:09:29,071 INFO Served fetch_status.json
+2025-07-12 19:09:29,087 INFO Served fetch_status.json
+2025-07-12 19:09:29,113 INFO Served 379 features for model viirs
+2025-07-12 19:09:57,467 INFO Served 379 features for model viirs
+2025-07-12 19:09:58,693 INFO Served 223 features for model modis
+2025-07-12 19:09:59,825 INFO Served 379 features for model viirs
+2025-07-12 19:10:04,949 INFO Served 379 features for model viirs
+2025-07-12 19:10:11,248 INFO Served fetch_status.json
+2025-07-12 19:10:11,292 INFO Served fetch_status.json
+2025-07-12 19:10:11,300 INFO Served 379 features for model viirs
+2025-07-12 19:10:16,658 INFO Served 379 features for model viirs
+2025-07-12 19:10:17,938 INFO Served 223 features for model modis
+2025-07-12 19:10:18,795 INFO Served 223 features for model modis
+2025-07-12 19:10:19,615 INFO Served 379 features for model viirs
+2025-07-12 19:10:25,849 INFO Served fetch_status.json
+2025-07-12 19:10:25,880 INFO Served 379 features for model viirs
+2025-07-12 19:10:25,880 INFO Served fetch_status.json
+2025-07-12 19:11:25,856 INFO Served fetch_status.json
+2025-07-12 19:11:25,940 INFO Served 379 features for model viirs
+2025-07-12 19:11:25,945 INFO Served fetch_status.json
+2025-07-12 19:11:37,864 INFO Served fetch_status.json
+2025-07-12 19:11:37,871 INFO Served fetch_status.json
+2025-07-12 19:11:37,885 INFO Served 379 features for model viirs
+2025-07-12 19:11:43,345 INFO Served fetch_status.json
+2025-07-12 19:11:43,414 INFO Served fetch_status.json
+2025-07-12 19:11:43,442 INFO Served 379 features for model viirs
+2025-07-12 19:12:19,537 INFO Served fetch_status.json
+2025-07-12 19:12:19,660 INFO Served fetch_status.json
+2025-07-12 19:12:20,073 INFO Served 379 features for model viirs
+2025-07-12 19:12:55,707 INFO Served fetch_status.json
+2025-07-12 19:12:55,728 INFO Served fetch_status.json
+2025-07-12 19:12:55,752 INFO Served 379 features for model viirs
+2025-07-12 19:13:40,894 INFO Served fetch_status.json
+2025-07-12 19:13:40,903 INFO Served fetch_status.json
+2025-07-12 19:13:40,915 INFO Served fetch_status.json
+2025-07-12 19:13:41,036 INFO Served 379 features for model viirs
+2025-07-12 19:13:41,060 INFO Served 379 features for model viirs
+2025-07-12 19:13:49,182 INFO Served fetch_status.json
+2025-07-12 19:13:49,202 INFO Served fetch_status.json
+2025-07-12 19:13:49,220 INFO Served 379 features for model viirs
+2025-07-12 19:14:12,507 INFO Served fetch_status.json
+2025-07-12 19:14:12,526 INFO Served fetch_status.json
+2025-07-12 19:14:12,545 INFO Served 379 features for model viirs
+2025-07-12 19:15:12,510 INFO Served fetch_status.json
+2025-07-12 19:15:12,547 INFO Served 379 features for model viirs
+2025-07-12 19:15:12,547 INFO Served fetch_status.json
+2025-07-12 19:16:12,512 INFO Served fetch_status.json
+2025-07-12 19:16:12,543 INFO Served 379 features for model viirs
+2025-07-12 19:16:12,544 INFO Served fetch_status.json
+2025-07-12 19:17:12,512 INFO Served fetch_status.json
+2025-07-12 19:17:12,543 INFO Served 379 features for model viirs
+2025-07-12 19:17:12,552 INFO Served fetch_status.json
+2025-07-12 19:17:35,158 INFO Served fetch_status.json
+2025-07-12 19:17:35,178 INFO Served fetch_status.json
+2025-07-12 19:17:35,203 INFO Served 379 features for model viirs
+2025-07-12 19:18:17,191 INFO Served fetch_status.json
+2025-07-12 19:18:17,250 INFO Served fetch_status.json
+2025-07-12 19:18:17,348 INFO Served 379 features for model viirs
+2025-07-12 19:18:18,314 INFO Served fetch_status.json
+2025-07-12 19:18:18,345 INFO Served fetch_status.json
+2025-07-12 19:18:18,385 INFO Served 379 features for model viirs
+2025-07-12 19:19:03,132 INFO Served fetch_status.json
+2025-07-12 19:19:03,171 INFO Served fetch_status.json
+2025-07-12 19:19:03,194 INFO Served 379 features for model viirs
+2025-07-12 19:20:03,133 INFO Served fetch_status.json
+2025-07-12 19:20:03,174 INFO Served fetch_status.json
+2025-07-12 19:20:03,187 INFO Served 379 features for model viirs
+2025-07-12 19:20:40,975 INFO Served fetch_status.json
+2025-07-12 19:20:40,989 INFO Served fetch_status.json
+2025-07-12 19:20:41,273 INFO Served 379 features for model viirs
+2025-07-12 19:21:41,630 INFO Served fetch_status.json
+2025-07-12 19:21:41,657 INFO Served 379 features for model viirs
+2025-07-12 19:21:41,667 INFO Served fetch_status.json
+2025-07-12 19:22:41,641 INFO Served 379 features for model viirs
+2025-07-12 19:22:41,642 INFO Served fetch_status.json
+2025-07-12 19:22:41,650 INFO Served fetch_status.json
+2025-07-12 19:23:40,893 INFO Served fetch_status.json
+2025-07-12 19:23:40,936 INFO Served 379 features for model viirs
+2025-07-12 19:23:40,936 INFO Served fetch_status.json
+2025-07-12 19:24:41,257 INFO Served fetch_status.json
+2025-07-12 19:24:41,283 INFO Served fetch_status.json
+2025-07-12 19:24:41,503 INFO Served 379 features for model viirs
+2025-07-12 19:24:49,134 INFO Served fetch_status.json
+2025-07-12 19:24:49,279 INFO Served fetch_status.json
+2025-07-12 19:24:49,427 INFO Served 379 features for model viirs
+2025-07-12 19:24:58,405 INFO Served fetch_status.json
+2025-07-12 19:24:58,434 INFO Served fetch_status.json
+2025-07-12 19:24:58,503 INFO Served 379 features for model viirs
+2025-07-12 19:24:58,957 INFO Served fetch_status.json
+2025-07-12 19:24:59,039 INFO Served fetch_status.json
+2025-07-12 19:24:59,131 INFO Served 379 features for model viirs
+2025-07-12 19:25:17,175 INFO Served fetch_status.json
+2025-07-12 19:25:17,220 INFO Served fetch_status.json
+2025-07-12 19:25:17,290 INFO Served 379 features for model viirs
+2025-07-12 19:25:17,659 INFO Served fetch_status.json
+2025-07-12 19:25:17,692 INFO Served fetch_status.json
+2025-07-12 19:25:17,714 INFO Served 379 features for model viirs
+2025-07-12 19:25:34,392 INFO Served fetch_status.json
+2025-07-12 19:25:34,431 INFO Served fetch_status.json
+2025-07-12 19:25:34,494 INFO Served 379 features for model viirs
+2025-07-12 19:26:28,572 INFO Served fetch_status.json
+2025-07-12 19:26:28,693 INFO Served fetch_status.json
+2025-07-12 19:26:28,721 INFO Served 379 features for model viirs
+2025-07-12 19:27:28,572 INFO Served fetch_status.json
+2025-07-12 19:27:28,600 INFO Served 379 features for model viirs
+2025-07-12 19:27:28,600 INFO Served fetch_status.json
+2025-07-12 19:27:39,025 INFO Served fetch_status.json
+2025-07-12 19:27:39,070 INFO Served fetch_status.json
+2025-07-12 19:27:39,098 INFO Served 379 features for model viirs
+2025-07-12 19:28:13,631 INFO Served fetch_status.json
+2025-07-12 19:28:13,671 INFO Served fetch_status.json
+2025-07-12 19:28:13,698 INFO Served 379 features for model viirs
+2025-07-12 19:29:13,626 INFO Served fetch_status.json
+2025-07-12 19:29:13,665 INFO Served 379 features for model viirs
+2025-07-12 19:29:13,674 INFO Served fetch_status.json
+2025-07-12 19:29:41,655 INFO Served fetch_status.json
+2025-07-12 19:29:41,676 INFO Served fetch_status.json
+2025-07-12 19:29:41,742 INFO Served 379 features for model viirs
+2025-07-12 19:30:06,505 INFO Served fetch_status.json
+2025-07-12 19:30:06,554 INFO Served 379 features for model viirs
+2025-07-12 19:30:06,554 INFO Served fetch_status.json
+2025-07-12 19:31:06,537 INFO Served fetch_status.json
+2025-07-12 19:31:06,574 INFO Served fetch_status.json
+2025-07-12 19:31:06,579 INFO Served 379 features for model viirs
+2025-07-12 19:31:11,736 INFO Served fetch_status.json
+2025-07-12 19:31:11,832 INFO Served fetch_status.json
+2025-07-12 19:31:11,913 INFO Served 379 features for model viirs
+2025-07-12 19:32:11,594 INFO Served fetch_status.json
+2025-07-12 19:32:11,629 INFO Served 379 features for model viirs
+2025-07-12 19:32:11,639 INFO Served fetch_status.json
+2025-07-12 19:32:36,707 INFO Served fetch_status.json
+2025-07-12 19:32:36,732 INFO Served fetch_status.json
+2025-07-12 19:32:36,830 INFO Served 379 features for model viirs
+2025-07-12 19:32:41,533 INFO Served fetch_status.json
+2025-07-12 19:32:41,585 INFO Served fetch_status.json
+2025-07-12 19:32:41,660 INFO Served 379 features for model viirs
+2025-07-12 19:32:43,097 INFO Served fetch_status.json
+2025-07-12 19:32:43,166 INFO Served 379 features for model viirs
+2025-07-12 19:32:43,166 INFO Served fetch_status.json
+2025-07-12 19:32:44,156 INFO Served fetch_status.json
+2025-07-12 19:32:44,229 INFO Served fetch_status.json
+2025-07-12 19:32:44,248 INFO Served 379 features for model viirs
+2025-07-12 19:32:47,089 INFO Served fetch_status.json
+2025-07-12 19:32:47,101 INFO Served fetch_status.json
+2025-07-12 19:32:47,129 INFO Served 379 features for model viirs
+2025-07-12 19:33:47,135 INFO Served fetch_status.json
+2025-07-12 19:33:47,184 INFO Served 379 features for model viirs
+2025-07-12 19:33:47,197 INFO Served fetch_status.json
+2025-07-12 19:33:59,139 INFO Served fetch_status.json
+2025-07-12 19:33:59,159 INFO Served fetch_status.json
+2025-07-12 19:33:59,209 INFO Served 379 features for model viirs
+2025-07-12 19:33:59,242 INFO Served fetch_status.json
+2025-07-12 19:33:59,298 INFO Served 379 features for model viirs
+2025-07-12 19:33:59,298 INFO Served fetch_status.json
+2025-07-12 19:34:00,439 INFO Served fetch_status.json
+2025-07-12 19:34:00,468 INFO Served fetch_status.json
+2025-07-12 19:34:00,515 INFO Served 379 features for model viirs
+2025-07-12 19:34:12,030 INFO Served fetch_status.json
+2025-07-12 19:34:12,053 INFO Served fetch_status.json
+2025-07-12 19:34:12,154 INFO Served 379 features for model viirs
+2025-07-12 19:35:12,024 INFO Served fetch_status.json
+2025-07-12 19:35:12,054 INFO Served 379 features for model viirs
+2025-07-12 19:35:12,061 INFO Served fetch_status.json
+2025-07-12 19:35:22,269 INFO Served fetch_status.json
+2025-07-12 19:35:22,294 INFO Served fetch_status.json
+2025-07-12 19:35:22,335 INFO Served 379 features for model viirs
+2025-07-12 19:36:22,274 INFO Served fetch_status.json
+2025-07-12 19:36:22,307 INFO Served 379 features for model viirs
+2025-07-12 19:36:22,314 INFO Served fetch_status.json
+2025-07-12 19:37:22,303 INFO Served 379 features for model viirs
+2025-07-12 19:37:22,303 INFO Served fetch_status.json
+2025-07-12 19:37:22,316 INFO Served fetch_status.json
+2025-07-12 19:38:22,274 INFO Served fetch_status.json
+2025-07-12 19:38:22,321 INFO Served fetch_status.json
+2025-07-12 19:38:22,341 INFO Served 379 features for model viirs
+2025-07-12 19:38:48,117 INFO Served fetch_status.json
+2025-07-12 19:38:48,146 INFO Served fetch_status.json
+2025-07-12 19:38:48,192 INFO Served 379 features for model viirs
+2025-07-12 19:39:17,355 INFO Served fetch_status.json
+2025-07-12 19:39:17,383 INFO Served fetch_status.json
+2025-07-12 19:39:17,457 INFO Served 379 features for model viirs
+2025-07-12 19:39:18,282 INFO Served fetch_status.json
+2025-07-12 19:39:18,327 INFO Served 379 features for model viirs
+2025-07-12 19:39:18,328 INFO Served fetch_status.json
+2025-07-12 19:40:18,275 INFO Served fetch_status.json
+2025-07-12 19:40:18,303 INFO Served fetch_status.json
+2025-07-12 19:40:18,359 INFO Served 379 features for model viirs
+2025-07-12 19:41:18,275 INFO Served fetch_status.json
+2025-07-12 19:41:18,291 INFO Served 379 features for model viirs
+2025-07-12 19:41:18,299 INFO Served fetch_status.json

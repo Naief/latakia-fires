@@ -229,59 +229,98 @@
       right: 420px;
       left: auto;
       z-index: 1000;
-      max-width: 320px;
-      min-width: 220px;
-      text-align: left;
-      align-items: flex-start;
-      padding: 22px 24px 18px 24px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #1a1a1a;
       background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.04);
-      border: 1px solid #f0f0f0;
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10), 0 1.5px 4px rgba(0,0,0,0.04);
+      padding: 28px 28px 20px 28px;
+      max-width: 340px;
+      min-width: 260px;
+      font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+      color: #222;
+      margin: 24px 0 0 24px;
+      transition: box-shadow 0.2s;
+      border: 1.5px solid #e3eaf3;
       pointer-events: auto;
     }
-    .legend h3 {
-      margin: 0 0 16px 0;
-      font-size: 16px;
-      font-weight: 600;
-      color: #1a1a1a;
+    .legend__header {
       display: flex;
       align-items: center;
-      gap: 8px;
+      margin-bottom: 18px;
     }
-    .legend-item {
+    .legend__icon {
+      margin-right: 10px;
       display: flex;
       align-items: center;
-      margin-bottom: 12px;
+    }
+    .legend__title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: #1976d2;
+      margin: 0;
+    }
+    .legend__list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px 0;
+    }
+    .legend__item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 14px;
+      gap: 12px;
       padding: 8px 12px;
-      border-radius: 8px;
-      background: rgba(248, 249, 250, 0.8);
+      border-radius: 12px;
       transition: background 0.2s ease;
     }
-    .legend-item:hover {
-      background: rgba(248, 249, 250, 1);
+    .legend__item:focus, .legend__item:hover {
+      background: #f5faff;
+      outline: none;
+      box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+      cursor: pointer;
     }
-    .legend .marker-sample, .legend .marker-recent {
+    .legend__info-btn {
+      background: none;
+      border: none;
+      padding: 4px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 24px;
       height: 24px;
+    }
+    .legend__info-btn:hover {
+      background: #f0f0f0;
+      transform: scale(1.1);
+    }
+    .legend__info-btn:focus {
+      outline: 2px solid #1976d2;
+      outline-offset: 2px;
+    }
+    .legend__marker {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      margin-right: 12px;
-      box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
+      background: #e3eaf3;
+      box-shadow: 0 1px 4px rgba(25, 118, 210, 0.08);
+      position: relative;
+      margin-right: 4px;
       flex-shrink: 0;
     }
-    .legend .marker-sample {
-      background: linear-gradient(135deg, #ff4444, #cc0000);
-      border: 3px solid #ffffff;
+    .marker-sample {
+      background: linear-gradient(135deg, #ff0000, #b30000);
+      border: 3px solid #fff;
     }
-    .legend .marker-recent {
-      background: linear-gradient(135deg, #ffd700, #ffb300);
-      border: 3px solid #ffffff;
-      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+    .marker-recent {
+      background: linear-gradient(135deg, #ffd700, #ff9900);
+      border: 3px solid #fff;
     }
-    .legend .spread-path-sample {
+    .spread-path-sample {
       width: 32px;
       height: 8px;
       background: linear-gradient(to right, #ffe066, #ff4444);
@@ -290,7 +329,7 @@
       position: relative;
       flex-shrink: 0;
     }
-    .legend .spread-path-sample::after {
+    .spread-path-sample::after {
       content: "▶";
       position: absolute;
       right: -8px;
@@ -298,23 +337,131 @@
       font-size: 10px;
       color: #ff4444;
     }
-    .legend-info {
-      font-size: 12px;
-      color: #666;
-      margin-top: 16px;
-      padding: 12px;
-      background: rgba(248, 249, 250, 0.6);
-      border-radius: 8px;
-      border-left: 3px solid #4285f4;
+
+    .legend__marker--frp {
+      width: 28px;
+      height: 28px;
+      background: none;
+      border: none;
+      position: relative;
+      display: inline-block;
     }
-    #legend-detection-times {
-      max-height: 180px;
-      overflow-y: auto;
-      background: rgba(248,249,250,0.7);
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 13px;
+    .legend__frp-glow {
+      position: absolute;
+      top: 0; left: 0;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px 4px #1976d2, 0 0 0 2px #fff;
+      z-index: 1;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .legend__frp-star {
+      position: absolute;
+      top: 2px; left: 4px;
+      font-size: 22px;
+      color: #1976d2;
+      text-shadow: 0 2px 8px #fff, 0 0 2px #1976d2;
+      z-index: 2;
+      font-weight: bold;
+      pointer-events: none;
+    }
+    .legend__marker--decreasing {
+      width: 28px;
+      height: 28px;
+      background: none;
+      border: none;
+      position: relative;
+      display: inline-block;
+    }
+    .legend__decreasing-glow {
+      position: absolute;
+      top: 0; left: 0;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px 4px #4caf50, 0 0 0 2px #fff;
+      z-index: 1;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .legend__decreasing-icon {
+      position: absolute;
+      top: 2px; left: 6px;
+      font-size: 20px;
+      color: #4caf50;
+      text-shadow: 0 2px 8px #fff, 0 0 2px #4caf50;
+      z-index: 2;
+      font-weight: bold;
+      pointer-events: none;
+    }
+    .legend__label {
+      font-size: 1.05rem;
+      color: #222;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    .legend__subtext {
+      font-size: 0.92rem;
+      color: #666;
+      margin-left: 2px;
+    }
+    .legend__info {
+      margin: 18px 0 0 0;
+      font-size: 0.98rem;
+      color: #444;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .legend__instructions {
+      color: #1976d2;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .legend__updated {
+      color: #666;
+      font-size: 0.97rem;
+    }
+    .legend__times {
       margin-top: 18px;
+      font-size: 0.97rem;
+      color: #222;
+      max-height: 120px;
+      overflow-y: auto;
+      border-top: 1px solid #e3eaf3;
+      padding-top: 10px;
+    }
+    .legend__times-list {
+      margin: 6px 0 0 16px;
+      padding: 0;
+      max-height: 90px;
+      overflow-y: auto;
+      font-variant-numeric: tabular-nums;
+    }
+    .legend__times-list li {
+      margin-bottom: 2px;
+      font-size: 0.97rem;
+      color: #444;
+    }
+    @media (max-width: 600px) {
+      .legend.material-card {
+        max-width: 98vw;
+        min-width: 0;
+        margin: 12px 2vw 0 2vw;
+        padding: 18px 8px 12px 12px;
+      }
+      .legend__header { 
+        margin-bottom: 10px; 
+      }
+      .legend__item { 
+        margin-bottom: 8px; 
+      }
+      .legend__info { 
+        margin-top: 10px; 
+      }
+      .legend__times { 
+        margin-top: 10px; 
+      }
     }
     /* Map action buttons */
     .map-actions {
@@ -1171,6 +1318,70 @@
       margin-left: 8px;
       user-select: none;
     }
+    .legend__marker--decreasing {
+      width: 28px;
+      height: 28px;
+      background: none;
+      border: none;
+      position: relative;
+      display: inline-block;
+    }
+    .legend__decreasing-glow {
+      position: absolute;
+      top: 0; left: 0;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px 4px #4caf50, 0 0 0 2px #fff;
+      z-index: 1;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .legend__decreasing-icon {
+      position: absolute;
+      top: 2px; left: 6px;
+      font-size: 20px;
+      color: #4caf50;
+      text-shadow: 0 2px 8px #fff, 0 0 2px #4caf50;
+      z-index: 2;
+      font-weight: bold;
+      pointer-events: none;
+    }
+    /* Add to CSS */
+    .legend__item--inactive {
+      opacity: 0.4;
+      filter: grayscale(1);
+      pointer-events: auto;
+    }
+    .legend__marker--radius {
+      width: 28px;
+      height: 28px;
+      background: none;
+      border: none;
+      position: relative;
+      display: inline-block;
+    }
+    .legend__radius-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(255, 0, 0, 0.08);
+      border: 1px solid #ff0000;
+      position: relative;
+      margin-right: 4px;
+      flex-shrink: 0;
+    }
+    .legend__radius-hotspot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ff0000;
+      border: 1px solid #fff;
+      box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -1230,27 +1441,82 @@
     </div>
   </div>
   <div class="ui-root">
-    <div class="legend material-card" title="Legend: What do the map symbols mean?" role="region" aria-label="Map Legend">
-      <h3>Map Legend</h3>
-      <div class="legend-item">
-        <span class="marker-sample" title="Current Hotspot" aria-label="Current Hotspot"></span>
-        <span><b>Current Hotspot</b></span>
+    <section class="legend material-card" title="Legend: What do the map symbols mean?" role="region" aria-label="Map Legend">
+      <header class="legend__header">
+        <span class="legend__icon" aria-hidden="true">
+          <svg width="24" height="24" fill="none"><circle cx="12" cy="12" r="10" fill="#1976d2" opacity="0.12"/><path d="M7 12h10M12 7v10" stroke="#1976d2" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <h3 class="legend__title">Map Legend</h3>
+      </header>
+      <ul class="legend__list">
+        <li class="legend__item" data-layer="current">
+          <span class="legend__marker marker-sample" title="Current Hotspot" aria-label="Current Hotspot"></span>
+          <span class="legend__label"><b>Current Hotspot</b></span>
+          <button class="legend__info-btn" id="currentHotspotInfoBtn" title="Current Hotspot Info" aria-label="Show Current Hotspot Info">
+            <span class="material-icons" style="font-size: 16px; color: #666;">info</span>
+          </button>
+        </li>
+        <li class="legend__item" data-layer="recent">
+          <span class="legend__marker marker-recent" title="Most Recent Hotspot" aria-label="Most Recent Hotspot"></span>
+          <span class="legend__label"><b>Most Recent Hotspot</b></span>
+          <button class="legend__info-btn" id="recentHotspotInfoBtn" title="Most Recent Hotspot Info" aria-label="Show Most Recent Hotspot Info">
+            <span class="material-icons" style="font-size: 16px; color: #666;">info</span>
+          </button>
+        </li>
+        <li class="legend__item" data-layer="spread">
+          <span class="legend__marker spread-path-sample" title="Spread Path" aria-label="Spread Path"></span>
+          <span class="legend__label"><b>Spread Path</b> <span class="legend__subtext">(last 24 hrs)</span></span>
+          <button class="legend__info-btn" id="spreadPathInfoBtn" title="Spread Path Info" aria-label="Show Spread Path Info">
+            <span class="material-icons" style="font-size: 16px; color: #666;">info</span>
+          </button>
+        </li>
+        <li class="legend__item" data-layer="frp">
+          <span class="legend__marker legend__marker--frp" title="Highest FRP detected" aria-label="Highest FRP detected">
+            <span class="legend__frp-glow"></span>
+            <span class="legend__frp-star">★</span>
+          </span>
+          <span class="legend__label"><b>Highest FRP detected</b></span>
+          <button class="legend__info-btn" id="highestFrpInfoBtn" title="Highest FRP Info" aria-label="Show Highest FRP Info">
+            <span class="material-icons" style="font-size: 16px; color: #666;">info</span>
+          </button>
+        </li>
+        <li class="legend__item" data-layer="decreasing">
+          <span class="legend__marker legend__marker--decreasing" title="Decreasing FRP (fire dying out)" aria-label="Decreasing FRP">
+            <span class="legend__decreasing-glow"></span>
+            <span class="legend__decreasing-icon">↓</span>
+          </span>
+          <span class="legend__label"><b>Decreasing FRP</b> <span class="legend__subtext">(fire dying out)</span></span>
+          <button class="legend__info-btn" id="decreasingFrpInfoBtn" title="Decreasing FRP Info" aria-label="Show Decreasing FRP Info">
+            <span class="material-icons" style="font-size: 16px; color: #666;">info</span>
+          </button>
+        </li>
+        <li class="legend__item" data-layer="radius">
+          <span class="legend__marker legend__marker--radius" title="Risk Buffer (1km radius)" aria-label="Risk Buffer">
+            <span class="legend__radius-circle"></span>
+            <span class="legend__radius-hotspot"></span>
+          </span>
+          <span class="legend__label"><b>Risk Buffer</b> <span class="legend__subtext">(1km radius)</span></span>
+          <button class="legend__info-btn" id="riskBufferInfoBtn" title="Risk Buffer Analysis" aria-label="Show Risk Buffer Analysis">
+            <span class="material-icons" style="font-size: 16px; color: #666;">info</span>
+          </button>
+        </li>
+      </ul>
+      <div class="legend__info">
+        <div class="legend__instructions">
+          <b>Tap</b> a hotspot for details.<br>
+          <b>Pinch/Zoom</b> to explore.
+        </div>
+        <div class="legend__updated">
+          <b>Last Updated:</b> <span id="last-updated">--:--</span> UTC+3
+        </div>
       </div>
-      <div class="legend-item">
-        <span class="marker-recent" title="Most Recent Hotspot" aria-label="Most Recent Hotspot"></span>
-        <span><b>Most Recent Hotspot</b></span>
+      <div id="legend-detection-times" class="legend__times">
+        <b>Recent Fire Detection Times<br>(Syria Time, UTC+3)</b>
+        <ul class="legend__times-list">
+          <!-- List items dynamically inserted here -->
+        </ul>
       </div>
-      <div class="legend-item">
-        <span class="spread-path-sample" title="Spread Path" aria-label="Spread Path"></span>
-        <span><b>Spread Path</b> <span style="font-size:12px;color:#666;">(last 24 hrs)</span></span>
-      </div>
-      <div class="legend-info">
-        <b>Tap</b> a hotspot for details.<br>
-        <b>Pinch/Zoom</b> to explore.<br>
-        <b>Last Updated:</b> <span id="last-updated">--:--</span> UTC+3
-      </div>
-      <div id="legend-detection-times"></div>
-    </div>
+    </section>
   </div>
 
   <button class="info-panel-toggle material-card" id="infoToggle" title="Show wildfire info" aria-label="Show wildfire info" tabindex="0">ℹ</button>
@@ -1318,6 +1584,304 @@
       <div style="font-size:13px;color:#666; padding: 8px 8px 0 8px;">For more details, see <a href="https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/viirs-nrt/" target="_blank" style="color:#4285f4;">NASA FIRMS VIIRS Fire Data</a>.</div>
     </div>
   </div>
+  <!-- Risk Buffer Analysis Modal -->
+  <div class="about-modal" id="riskBufferModal" role="dialog" aria-modal="true" aria-label="Risk Buffer Analysis">
+    <div class="about-modal-content" style="max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+      <button class="about-modal-close" id="riskBufferCloseBtn" title="Close" aria-label="Close">×</button>
+      <h3>Risk Buffer Analysis</h3>
+      <div style="flex:1; overflow-y: auto; padding: 0 2px 0 0; margin-bottom:12px; font-size:14px; color:#222; border-radius: 10px; padding-left: 8px; padding-right: 8px;">
+        <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #1976d2;">
+          <strong>Decision:</strong> Maintain 1km radius for risk buffer zones around fire hotspots.<br>
+          <strong>Reasoning:</strong> While NASA VIIRS data has a 375m sensor resolution, a 1km buffer provides optimal safety margin for wildfire early-warning systems.
+        </div>
+        
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">NASA VIIRS Data Specifications</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Sensor Resolution:</strong> 375m</li>
+          <li><strong>Imagery Resolution:</strong> 250m</li>
+          <li><strong>Thermal Anomaly Representation:</strong> Red points at approximate center of 375m pixels</li>
+          <li><strong>Temporal Resolution:</strong> Twice daily observations</li>
+          <li><strong>Spatial Accuracy:</strong> Improved mapping of large fire perimeters and small area fires</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Risk Buffer Considerations</h4>
+        
+        <h5 style="color: #666; margin: 16px 0 8px 0;">Why 375m Would Be Technically Accurate</h5>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li>Matches the actual VIIRS sensor pixel size</li>
+          <li>Represents the precise area of fire detection</li>
+          <li>Aligns with NASA's data resolution specifications</li>
+        </ul>
+
+        <h5 style="color: #666; margin: 16px 0 8px 0;">Why 1km Provides Better Operational Value</h5>
+        <ol style="margin: 8px 0 12px 18px;">
+          <li><strong>Safety Margin:</strong> Fire spread can extend beyond immediate detection pixels</li>
+          <li><strong>Emergency Planning:</strong> Provides adequate buffer for evacuation planning</li>
+          <li><strong>Real-world Conditions:</strong> Accounts for wind, terrain, and fire behavior variations</li>
+          <li><strong>Early Warning System:</strong> Conservative approach ensures public safety</li>
+          <li><strong>Response Time:</strong> Gives emergency services sufficient notice and area coverage</li>
+        </ol>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Implementation</h4>
+        <p>The risk buffer is implemented as:</p>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Radius:</strong> 1,000 meters (1km)</li>
+          <li><strong>Visual Style:</strong> Red translucent circles around each hotspot</li>
+          <li><strong>Interactive:</strong> Toggleable via legend controls</li>
+          <li><strong>Real-time:</strong> Updates with new fire data</li>
+        </ul>
+
+        <div style="background: #e8f5e8; padding: 16px; border-radius: 8px; margin-top: 16px; border-left: 4px solid #4caf50;">
+          <strong>Conclusion:</strong> While 375m represents the technical accuracy of NASA's VIIRS data, the 1km risk buffer radius provides the optimal balance between scientific precision and operational safety for wildfire early-warning systems. This conservative approach ensures maximum protection for communities while maintaining the system's scientific foundation.
+        </div>
+      </div>
+      <div style="font-size:13px;color:#666; padding: 8px 8px 0 8px;">This analysis is based on NASA FIRMS VIIRS data specifications and wildfire management best practices.</div>
+    </div>
+  </div>
+  <!-- Current Hotspot Info Modal -->
+  <div class="about-modal" id="currentHotspotModal" role="dialog" aria-modal="true" aria-label="Current Hotspot Information">
+    <div class="about-modal-content" style="max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+      <button class="about-modal-close" id="currentHotspotCloseBtn" title="Close" aria-label="Close">×</button>
+      <h3>Current Hotspot Information</h3>
+      <div style="flex:1; overflow-y: auto; padding: 0 2px 0 0; margin-bottom:12px; font-size:14px; color:#222; border-radius: 10px; padding-left: 8px; padding-right: 8px;">
+        <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #ff0000;">
+          <strong>Definition:</strong> Red circular markers represent active fire hotspots detected by NASA VIIRS satellites.<br>
+          <strong>Time Range:</strong> Detections from the last 24 hours that are not the most recent.
+        </div>
+        
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Visual Characteristics</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Color:</strong> Red gradient (#ff0000 to #b30000)</li>
+          <li><strong>Size:</strong> 8px radius (smaller than most recent)</li>
+          <li><strong>Border:</strong> Dark red outline for visibility</li>
+          <li><strong>Opacity:</strong> 95% fill opacity for clear visibility</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Data Significance</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Active Fires:</strong> These represent fires that are still burning</li>
+          <li><strong>Fire History:</strong> Shows the progression of fire activity over time</li>
+          <li><strong>Risk Assessment:</strong> Helps identify areas with ongoing fire activity</li>
+          <li><strong>Emergency Response:</strong> Critical for evacuation and firefighting decisions</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">How to Use</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Click:</strong> Tap any red hotspot for detailed information</li>
+          <li><strong>Time Analysis:</strong> Compare with most recent hotspots to see fire progression</li>
+          <li><strong>Risk Assessment:</strong> Use with risk buffer zones for safety planning</li>
+          <li><strong>Toggle:</strong> Use legend control to show/hide current hotspots</li>
+        </ul>
+
+        <div style="background: #fff3e0; padding: 16px; border-radius: 8px; margin-top: 16px; border-left: 4px solid #ff9800;">
+          <strong>Note:</strong> Current hotspots represent active fire activity. Always follow local emergency instructions and evacuation orders when fires are detected in your area.
+        </div>
+      </div>
+      <div style="font-size:13px;color:#666; padding: 8px 8px 0 8px;">Data from NASA FIRMS VIIRS satellite system, updated every 10 minutes.</div>
+    </div>
+  </div>
+  <!-- Most Recent Hotspot Info Modal -->
+  <div class="about-modal" id="recentHotspotModal" role="dialog" aria-modal="true" aria-label="Most Recent Hotspot Information">
+    <div class="about-modal-content" style="max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+      <button class="about-modal-close" id="recentHotspotCloseBtn" title="Close" aria-label="Close">×</button>
+      <h3>Most Recent Hotspot Information</h3>
+      <div style="flex:1; overflow-y: auto; padding: 0 2px 0 0; margin-bottom:12px; font-size:14px; color:#222; border-radius: 10px; padding-left: 8px; padding-right: 8px;">
+        <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #ffd700;">
+          <strong>Definition:</strong> Gold/yellow circular markers represent the most recently detected fire hotspots.<br>
+          <strong>Time Range:</strong> The latest fire detections from the most recent satellite pass.
+        </div>
+        
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Visual Characteristics</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Color:</strong> Gold gradient (#ffd700 to #ff9900)</li>
+          <li><strong>Size:</strong> 11px radius (larger than current hotspots)</li>
+          <li><strong>Border:</strong> Orange outline for emphasis</li>
+          <li><strong>Opacity:</strong> 98% fill opacity for maximum visibility</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Data Significance</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Latest Activity:</strong> Represents the most current fire activity</li>
+          <li><strong>Immediate Risk:</strong> Highest priority for emergency response</li>
+          <li><strong>Fire Progression:</strong> Shows where fires are actively spreading</li>
+          <li><strong>Real-time Awareness:</strong> Critical for immediate safety decisions</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">How to Use</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Priority Monitoring:</strong> Focus on gold hotspots for immediate threats</li>
+          <li><strong>Time Comparison:</strong> Compare with red hotspots to see fire movement</li>
+          <li><strong>Emergency Planning:</strong> Use for immediate evacuation decisions</li>
+          <li><strong>Toggle:</strong> Use legend control to show/hide most recent hotspots</li>
+        </ul>
+
+        <div style="background: #fff3e0; padding: 16px; border-radius: 8px; margin-top: 16px; border-left: 4px solid #ff9800;">
+          <strong>Emergency Priority:</strong> Gold hotspots represent the most recent fire activity and should be given highest priority for emergency response and evacuation planning.
+        </div>
+      </div>
+      <div style="font-size:13px;color:#666; padding: 8px 8px 0 8px;">Data from NASA FIRMS VIIRS satellite system, updated every 10 minutes.</div>
+    </div>
+  </div>
+  <!-- Spread Path Info Modal -->
+  <div class="about-modal" id="spreadPathModal" role="dialog" aria-modal="true" aria-label="Spread Path Information">
+    <div class="about-modal-content" style="max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+      <button class="about-modal-close" id="spreadPathCloseBtn" title="Close" aria-label="Close">×</button>
+      <h3>Spread Path Information</h3>
+      <div style="flex:1; overflow-y: auto; padding: 0 2px 0 0; margin-bottom:12px; font-size:14px; color:#222; border-radius: 10px; padding-left: 8px; padding-right: 8px;">
+        <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #ff6600;">
+          <strong>Definition:</strong> Colored lines connecting fire hotspots show the path of fire spread over time.<br>
+          <strong>Time Range:</strong> Fire movement patterns from the last 24 hours.
+        </div>
+        
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Visual Characteristics</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Color Gradient:</strong> Yellow to red based on time (recent = red, older = yellow)</li>
+          <li><strong>Line Style:</strong> Dashed lines with 6px width and 45% opacity</li>
+          <li><strong>Direction Arrows:</strong> Triangle arrows show fire movement direction</li>
+          <li><strong>Time Encoding:</strong> Color indicates when the fire moved along that path</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Color Time Scale</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Red (#ff0000):</strong> Fire movement within last hour</li>
+          <li><strong>Orange (#ff6600):</strong> Fire movement 1-6 hours ago</li>
+          <li><strong>Light Orange (#ffb300):</strong> Fire movement 6-12 hours ago</li>
+          <li><strong>Yellow (#ffe066):</strong> Fire movement 12-24 hours ago</li>
+          <li><strong>Dark Grey (#666666):</strong> Fire movement over 24 hours ago</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Data Significance</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Fire Behavior:</strong> Shows how fires spread across the landscape</li>
+          <li><strong>Predictive Analysis:</strong> Helps predict future fire spread patterns</li>
+          <li><strong>Wind Effects:</strong> Reveals wind direction and speed impacts</li>
+          <li><strong>Terrain Influence:</strong> Shows how landscape affects fire movement</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">How to Use</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Direction Analysis:</strong> Follow arrows to see fire movement direction</li>
+          <li><strong>Speed Assessment:</strong> Distance between points shows spread speed</li>
+          <li><strong>Pattern Recognition:</strong> Identify recurring fire spread patterns</li>
+          <li><strong>Toggle:</strong> Use legend control to show/hide spread paths and arrows</li>
+        </ul>
+
+        <div style="background: #e3f2fd; padding: 16px; border-radius: 8px; margin-top: 16px; border-left: 4px solid #2196f3;">
+          <strong>Analysis Tip:</strong> Use the playback feature to animate fire spread over time and better understand fire behavior patterns.
+        </div>
+      </div>
+      <div style="font-size:13px;color:#666; padding: 8px 8px 0 8px;">Data from NASA FIRMS VIIRS satellite system, updated every 10 minutes.</div>
+    </div>
+  </div>
+  <!-- Highest FRP Info Modal -->
+  <div class="about-modal" id="highestFrpModal" role="dialog" aria-modal="true" aria-label="Highest FRP Information">
+    <div class="about-modal-content" style="max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+      <button class="about-modal-close" id="highestFrpCloseBtn" title="Close" aria-label="Close">×</button>
+      <h3>Highest FRP Information</h3>
+      <div style="flex:1; overflow-y: auto; padding: 0 2px 0 0; margin-bottom:12px; font-size:14px; color:#222; border-radius: 10px; padding-left: 8px; padding-right: 8px;">
+        <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #1976d2;">
+          <strong>Definition:</strong> Blue glowing rings with star badges mark the fire hotspot with the highest Fire Radiative Power (FRP).<br>
+          <strong>Significance:</strong> Represents the most intense fire currently detected in the region.
+        </div>
+        
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Visual Characteristics</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Glow Effect:</strong> Blue glowing ring around the hotspot</li>
+          <li><strong>Star Badge:</strong> Blue star (★) overlay on the hotspot</li>
+          <li><strong>Ring Size:</strong> 18px radius glow for emphasis</li>
+          <li><strong>Color:</strong> Blue (#1976d2) to distinguish from fire colors</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">What is FRP?</h4>
+        <p style="margin: 8px 0 12px 0;"><strong>Fire Radiative Power (FRP)</strong> measures the rate of heat energy emitted by a fire in megawatts (MW). Higher FRP values indicate:</p>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Intensity:</strong> More intense, hotter fires</li>
+          <li><strong>Size:</strong> Larger fire areas or multiple fire fronts</li>
+          <li><strong>Fuel:</strong> Abundant, dry fuel sources</li>
+          <li><strong>Danger:</strong> Higher risk and faster spread potential</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">FRP Scale Examples</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Low FRP (1-10 MW):</strong> Small fires, controlled burns</li>
+          <li><strong>Medium FRP (10-100 MW):</strong> Moderate wildfires</li>
+          <li><strong>High FRP (100-1000 MW):</strong> Large, intense wildfires</li>
+          <li><strong>Very High FRP (1000+ MW):</strong> Extreme fire events</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Emergency Significance</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Priority Response:</strong> Highest FRP fires need immediate attention</li>
+          <li><strong>Resource Allocation:</strong> Guide firefighting resource deployment</li>
+          <li><strong>Evacuation Planning:</strong> High FRP indicates severe fire conditions</li>
+          <li><strong>Risk Assessment:</strong> Predict fire behavior and spread potential</li>
+        </ul>
+
+        <div style="background: #e8f5e8; padding: 16px; border-radius: 8px; margin-top: 16px; border-left: 4px solid #4caf50;">
+          <strong>Important:</strong> The highest FRP fire represents the most dangerous fire in the region and should be the primary focus for emergency response efforts.
+        </div>
+      </div>
+      <div style="font-size:13px;color:#666; padding: 8px 8px 0 8px;">Data from NASA FIRMS VIIRS satellite system, updated every 10 minutes.</div>
+    </div>
+  </div>
+  <!-- Decreasing FRP Info Modal -->
+  <div class="about-modal" id="decreasingFrpModal" role="dialog" aria-modal="true" aria-label="Decreasing FRP Information">
+    <div class="about-modal-content" style="max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+      <button class="about-modal-close" id="decreasingFrpCloseBtn" title="Close" aria-label="Close">×</button>
+      <h3>Decreasing FRP Information</h3>
+      <div style="flex:1; overflow-y: auto; padding: 0 2px 0 0; margin-bottom:12px; font-size:14px; color:#222; border-radius: 10px; padding-left: 8px; padding-right: 8px;">
+        <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #4caf50;">
+          <strong>Definition:</strong> Green glowing rings with down arrows mark fire hotspots where FRP is decreasing.<br>
+          <strong>Significance:</strong> Indicates fires that are dying out or being controlled.
+        </div>
+        
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Visual Characteristics</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Glow Effect:</strong> Green glowing ring around the hotspot</li>
+          <li><strong>Arrow Badge:</strong> Green down arrow (↓) overlay</li>
+          <li><strong>Ring Size:</strong> 16px radius glow for emphasis</li>
+          <li><strong>Color:</strong> Green (#4caf50) to indicate positive trend</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">What Decreasing FRP Means</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Fire Control:</strong> Fire is being successfully contained</li>
+          <li><strong>Natural Decline:</strong> Fire is running out of fuel</li>
+          <li><strong>Weather Change:</strong> Rain, humidity, or wind changes</li>
+          <li><strong>Firefighting Success:</strong> Effective suppression efforts</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Detection Criteria</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>FRP Drop:</strong> 20% or greater decrease in FRP</li>
+          <li><strong>Time Analysis:</strong> Based on last 3 observations</li>
+          <li><strong>Location Tracking:</strong> Same fire location over time</li>
+          <li><strong>Trend Analysis:</strong> Consistent decreasing pattern</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Operational Benefits</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Resource Reallocation:</strong> Shift resources to active fires</li>
+          <li><strong>Risk Reduction:</strong> Lower immediate threat assessment</li>
+          <li><strong>Success Tracking:</strong> Monitor firefighting effectiveness</li>
+          <li><strong>Recovery Planning:</strong> Begin post-fire assessment</li>
+        </ul>
+
+        <h4 style="color: #1976d2; margin: 20px 0 12px 0;">Important Notes</h4>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Caution:</strong> Decreasing FRP doesn't guarantee fire is out</li>
+          <li><strong>Monitoring:</strong> Continue monitoring for flare-ups</li>
+          <li><strong>Safety:</strong> Follow local authority instructions</li>
+          <li><strong>Verification:</strong> Confirm with ground reports when possible</li>
+        </ul>
+
+        <div style="background: #e8f5e8; padding: 16px; border-radius: 8px; margin-top: 16px; border-left: 4px solid #4caf50;">
+          <strong>Positive Sign:</strong> Decreasing FRP indicates improving fire conditions, but maintain vigilance as fires can reignite under changing conditions.
+        </div>
+      </div>
+      <div style="font-size:13px;color:#666; padding: 8px 8px 0 8px;">Data from NASA FIRMS VIIRS satellite system, updated every 10 minutes.</div>
+    </div>
+  </div>
   <button class="log-panel-toggle material-card" id="logToggle" title="Show system logs" aria-label="Show system logs" tabindex="0" style="position:fixed;bottom:24px;right:24px;z-index:2001;width:56px;height:56px;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(66,133,244,0.18);background:linear-gradient(135deg,#222,#1976d2);color:#fff;cursor:pointer;">
     <span style="font-size:28px;">📝</span>
   </button>
@@ -1382,12 +1946,12 @@
     var bufferLayer;
 
     function getColorByAge(hoursAgo) {
-      // Color gradient: 0h (now) = #ff0000, 24h = #ffe066, older = #cccccc
+      // Color gradient: 0h (now) = #ff0000, 24h = #ffe066, older = #666666
       if (hoursAgo <= 1) return '#ff0000';
       if (hoursAgo <= 6) return '#ff6600';
       if (hoursAgo <= 12) return '#ffb300';
       if (hoursAgo <= 24) return '#ffe066';
-      return '#cccccc';
+      return '#666666';
     }
 
     let playbackInterval = null;
@@ -1644,6 +2208,14 @@
         .then(data => {
           // Use all features from the past 10 days (no filtering)
           const allFeatures = data.features;
+          // Find the highest FRP value
+          let maxFrp = null;
+          allFeatures.forEach(f => {
+            const frp = parseFloat(f.properties.frp);
+            if (!isNaN(frp) && (maxFrp === null || frp > maxFrp)) {
+              maxFrp = frp;
+            }
+          });
           if (geojsonLayer) {
             map.removeLayer(geojsonLayer);
           }
@@ -1657,20 +2229,18 @@
             map.removeLayer(window.spreadPathArrows);
           }
           // Draw risk buffer (1km) around each hotspot
-          bufferLayer = L.layerGroup();
           allFeatures.forEach(function(feature) {
             var coords = feature.geometry.coordinates;
             var circle = L.circle([coords[1], coords[0]], {
               radius: 1000, // 1km in meters
               color: '#ff0000',
               fillColor: '#ff0000',
-              fillOpacity: 0.18,
+              fillOpacity: 0.08,
               weight: 1,
               interactive: false
             });
-            bufferLayer.addLayer(circle);
+            window.radiusLayer.addLayer(circle);
           });
-          bufferLayer.addTo(map);
           // Draw spread path (with playback support)
           drawSpreadPath(allFeatures);
           // Find the most recent acq_date/acq_time in all data
@@ -1741,21 +2311,15 @@
           detectionTimesSyria.sort((a, b) => b.iso.localeCompare(a.iso));
           // Update the legend with the list of detection times (from all data)
           var legendTimesBlock = document.getElementById('legend-detection-times');
-          if (!legendTimesBlock) {
-            // If not present, create and insert it
-            legendTimesBlock = document.createElement('div');
-            legendTimesBlock.id = 'legend-detection-times';
-            legendTimesBlock.style.marginTop = '18px';
-            legendTimesBlock.style.fontSize = '13px';
-            legendTimesBlock.style.background = 'rgba(248,249,250,0.7)';
-            legendTimesBlock.style.borderRadius = '8px';
-            legendTimesBlock.style.padding = '10px 12px';
-            legendTimesBlock.style.maxHeight = '180px';
-            legendTimesBlock.style.overflowY = 'auto';
-            var legend = document.querySelector('.legend');
-            legend.appendChild(legendTimesBlock);
+          if (legendTimesBlock) {
+            var timesList = legendTimesBlock.querySelector('.legend__times-list');
+            if (timesList) {
+              timesList.innerHTML = detectionTimesSyria.map(t => `<li>${t.label}</li>`).join('');
+            }
           }
-          legendTimesBlock.innerHTML = `<b>Recent Fire Detection Times<br>(Syria Time, UTC+3)</b><ul style='margin:6px 0 0 16px;padding:0;'>${detectionTimesSyria.map(t => `<li>${t.label}</li>`).join('')}</ul>`;
+          // Analyze FRP trends to identify decreasing fires
+          const decreasingFRPLocations = analyzeFRPTrends(allFeatures);
+          
           // Use allFeatures for geojsonLayer and slider
           geojsonLayer = L.geoJSON({ type: 'FeatureCollection', features: allFeatures }, {
             pointToLayer: function (feature, latlng) {
@@ -1764,21 +2328,82 @@
               if (mostRecent && feature.properties.acq_date === mostRecent.properties.acq_date && feature.properties.acq_time === mostRecent.properties.acq_time) {
                 isMostRecent = true;
               }
-              return L.circleMarker(latlng, isMostRecent ? {
-                radius: 14,
+              // Highlight highest FRP
+              let isMaxFrp = false;
+              let frp = parseFloat(feature.properties.frp);
+              if (!isNaN(frp) && frp === maxFrp) {
+                isMaxFrp = true;
+              }
+              // Check if this location has decreasing FRP
+              const coords = feature.geometry.coordinates;
+              const locationKey = `${coords[1]},${coords[0]}`;
+              const isDecreasingFRP = decreasingFRPLocations.has(locationKey);
+              let marker = L.circleMarker(latlng, isMostRecent ? {
+                radius: 11, // was 14
                 fillColor: "#ffd700", // Gold/yellow
                 color: "#ff9900", // Orange border
                 weight: 3,
                 opacity: 1,
                 fillOpacity: 0.98
               } : {
-                radius: 12,
+                radius: 8, // was 12
                 fillColor: "#ff0000",
                 color: "#b30000",
                 weight: 2,
                 opacity: 1,
                 fillOpacity: 0.95
               });
+              if (isMaxFrp) {
+                // Add a glowing blue ring
+                let glow = L.circleMarker(latlng, {
+                  radius: 18,
+                  color: '#1976d2',
+                  weight: 4,
+                  opacity: 0.7,
+                  fill: false,
+                  interactive: false,
+                  pane: 'markerPane'
+                });
+                window.highestFrpLayer.addLayer(glow);
+                // Add a star badge overlay
+                let starIcon = L.divIcon({
+                  className: '',
+                  html: '<span style="font-size:22px;color:#1976d2;text-shadow:0 0 6px #fff,0 0 2px #1976d2;position:relative;top:-8px;left:-8px;">★</span>',
+                  iconSize: [24, 24],
+                  iconAnchor: [12, 12]
+                });
+                let star = L.marker(latlng, { icon: starIcon, interactive: false, pane: 'markerPane' });
+                window.highestFrpLayer.addLayer(star);
+              }
+              
+              if (isDecreasingFRP) {
+                // Add a glowing green ring for decreasing FRP
+                let decreasingGlow = L.circleMarker(latlng, {
+                  radius: 16,
+                  color: '#4caf50',
+                  weight: 3,
+                  opacity: 0.8,
+                  fill: false,
+                  interactive: false,
+                  pane: 'markerPane'
+                });
+                window.decreasingFrpLayer.addLayer(decreasingGlow);
+                // Add a down arrow badge overlay
+                let arrowIcon = L.divIcon({
+                  className: '',
+                  html: '<span style="font-size:18px;color:#4caf50;text-shadow:0 0 6px #fff,0 0 2px #4caf50;position:relative;top:-6px;left:-6px;font-weight:bold;">↓</span>',
+                  iconSize: [20, 20],
+                  iconAnchor: [10, 10]
+                });
+                let arrow = L.marker(latlng, { icon: arrowIcon, interactive: false, pane: 'markerPane' });
+                window.decreasingFrpLayer.addLayer(arrow);
+              }
+              if (isMostRecent) {
+                window.recentHotspotLayer.addLayer(marker);
+              } else {
+                window.currentHotspotLayer.addLayer(marker);
+              }
+              return marker;
             },
             onEachFeature: function (feature, layer) {
               var p = feature.properties;
@@ -1807,6 +2432,25 @@
                   detectionTimeSyria = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
                 } catch {}
               }
+              // Check if this location has decreasing FRP
+              const coords = feature.geometry.coordinates;
+              const locationKey = `${coords[1]},${coords[0]}`;
+              const isDecreasingFRP = decreasingFRPLocations.has(locationKey);
+              
+              // Dynamic FRP analogies
+              var frpVal = parseFloat(p.frp);
+              var heaters = isNaN(frpVal) ? '—' : Math.round(frpVal * 1000).toLocaleString();
+              var cars = isNaN(frpVal) ? '—' : Math.round(frpVal * 10).toLocaleString();
+              var turbines = isNaN(frpVal) ? '—' : (frpVal / 3).toFixed(1);
+              // Estimate flame height
+              var flameHeight = '—';
+              var flameFloors = '—';
+              if (!isNaN(frpVal)) {
+                var firelineIntensity = frpVal * 300; // kW/m
+                var meters = 0.0775 * Math.pow(firelineIntensity, 0.46);
+                flameHeight = meters.toFixed(1);
+                flameFloors = Math.max(1, Math.round(meters / 3));
+              }
               // Popup HTML
               var popup = `
                 <div style='font-size:15px;line-height:1.6;max-width:340px;'>
@@ -1816,7 +2460,15 @@
                   <div><b>⏰ Detection Time (Syria):</b> ${detectionTimeSyria}</div>
                   <div><b>🌡 Brightness:</b> ${p.brightness || '—'} <span style='color:#888;font-size:12px;'>(higher = hotter fire)</span></div>
                   <div><b>🔥 Fire Radiative Power (FRP):</b> ${p.frp || '—'} MW <a href='https://earthdata.nasa.gov/faq/firms-faq#frp' target='_blank' style='color:#4285f4;font-size:12px;'>What is FRP?</a></div>
-                  <div style='margin-top:6px;'><b>🔍 Confidence:</b> ${p.confidence || '—'} <span style='font-size:12px;'>(${confLegend})</span> <a href='https://earthdata.nasa.gov/faq/firms-faq#confidence' target='_blank' style='color:#4285f4;font-size:12px;'>What does this mean?</a></div>
+                  <div style='background:#f7fafd;border-left:3px solid #1976d2;padding:8px 12px 8px 12px;margin:8px 0 4px 0;font-size:13px;color:#1976d2;border-radius:8px;'>
+                    This is as much heat as about <b>${heaters} household heaters</b>, <b>${cars} car engines</b>, or <b>${turbines} large wind turbines</b>.<br>
+                    Estimated flame height: <b>${flameHeight} meters</b> (about <b>${flameFloors} floors</b> up a building)
+                  </div>
+                  ${isDecreasingFRP ? `<div style='background:#f1f8e9;border-left:3px solid #4caf50;padding:8px 12px 8px 12px;margin:8px 0 4px 0;font-size:13px;color:#2e7d32;border-radius:8px;'>
+                    <b>🔥 Fire Status: Decreasing Intensity</b><br>
+                    This fire appears to be dying out based on decreasing FRP values over time. This could indicate successful firefighting efforts or natural fire behavior.
+                  </div>` : ''}
+                  <div style='margin-top:6px;'><b>�� Confidence:</b> ${p.confidence || '—'} <span style='font-size:12px;'>(${confLegend})</span> <a href='https://earthdata.nasa.gov/faq/firms-faq#confidence' target='_blank' style='color:#4285f4;font-size:12px;'>What does this mean?</a></div>
                   ${confWarn}
                   <div><b>🌗 Detected:</b> ${dayNight}</div>
                   <div><b>💨 Wind Direction:</b> ${windArrow}</div>
@@ -1982,6 +2634,66 @@
         nasaInfoModal.onclick = function(e) { if (e.target === nasaInfoModal) nasaInfoModal.style.display = 'none'; };
         nasaInfoBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { nasaInfoBtn.click(); e.preventDefault(); } });
       }
+      // Risk Buffer Analysis modal logic
+      var riskBufferInfoBtn = document.getElementById('riskBufferInfoBtn');
+      var riskBufferModal = document.getElementById('riskBufferModal');
+      var riskBufferCloseBtn = document.getElementById('riskBufferCloseBtn');
+      if (riskBufferInfoBtn && riskBufferModal && riskBufferCloseBtn) {
+        riskBufferInfoBtn.onclick = function() { riskBufferModal.style.display = 'flex'; };
+        riskBufferCloseBtn.onclick = function() { riskBufferModal.style.display = 'none'; };
+        riskBufferModal.onclick = function(e) { if (e.target === riskBufferModal) riskBufferModal.style.display = 'none'; };
+        riskBufferInfoBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { riskBufferInfoBtn.click(); e.preventDefault(); } });
+      }
+      // Current Hotspot Info modal logic
+      var currentHotspotInfoBtn = document.getElementById('currentHotspotInfoBtn');
+      var currentHotspotModal = document.getElementById('currentHotspotModal');
+      var currentHotspotCloseBtn = document.getElementById('currentHotspotCloseBtn');
+      if (currentHotspotInfoBtn && currentHotspotModal && currentHotspotCloseBtn) {
+        currentHotspotInfoBtn.onclick = function() { currentHotspotModal.style.display = 'flex'; };
+        currentHotspotCloseBtn.onclick = function() { currentHotspotModal.style.display = 'none'; };
+        currentHotspotModal.onclick = function(e) { if (e.target === currentHotspotModal) currentHotspotModal.style.display = 'none'; };
+        currentHotspotInfoBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { currentHotspotInfoBtn.click(); e.preventDefault(); } });
+      }
+      // Most Recent Hotspot Info modal logic
+      var recentHotspotInfoBtn = document.getElementById('recentHotspotInfoBtn');
+      var recentHotspotModal = document.getElementById('recentHotspotModal');
+      var recentHotspotCloseBtn = document.getElementById('recentHotspotCloseBtn');
+      if (recentHotspotInfoBtn && recentHotspotModal && recentHotspotCloseBtn) {
+        recentHotspotInfoBtn.onclick = function() { recentHotspotModal.style.display = 'flex'; };
+        recentHotspotCloseBtn.onclick = function() { recentHotspotModal.style.display = 'none'; };
+        recentHotspotModal.onclick = function(e) { if (e.target === recentHotspotModal) recentHotspotModal.style.display = 'none'; };
+        recentHotspotInfoBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { recentHotspotInfoBtn.click(); e.preventDefault(); } });
+      }
+      // Spread Path Info modal logic
+      var spreadPathInfoBtn = document.getElementById('spreadPathInfoBtn');
+      var spreadPathModal = document.getElementById('spreadPathModal');
+      var spreadPathCloseBtn = document.getElementById('spreadPathCloseBtn');
+      if (spreadPathInfoBtn && spreadPathModal && spreadPathCloseBtn) {
+        spreadPathInfoBtn.onclick = function() { spreadPathModal.style.display = 'flex'; };
+        spreadPathCloseBtn.onclick = function() { spreadPathModal.style.display = 'none'; };
+        spreadPathModal.onclick = function(e) { if (e.target === spreadPathModal) spreadPathModal.style.display = 'none'; };
+        spreadPathInfoBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { spreadPathInfoBtn.click(); e.preventDefault(); } });
+      }
+      // Highest FRP Info modal logic
+      var highestFrpInfoBtn = document.getElementById('highestFrpInfoBtn');
+      var highestFrpModal = document.getElementById('highestFrpModal');
+      var highestFrpCloseBtn = document.getElementById('highestFrpCloseBtn');
+      if (highestFrpInfoBtn && highestFrpModal && highestFrpCloseBtn) {
+        highestFrpInfoBtn.onclick = function() { highestFrpModal.style.display = 'flex'; };
+        highestFrpCloseBtn.onclick = function() { highestFrpModal.style.display = 'none'; };
+        highestFrpModal.onclick = function(e) { if (e.target === highestFrpModal) highestFrpModal.style.display = 'none'; };
+        highestFrpInfoBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { highestFrpInfoBtn.click(); e.preventDefault(); } });
+      }
+      // Decreasing FRP Info modal logic
+      var decreasingFrpInfoBtn = document.getElementById('decreasingFrpInfoBtn');
+      var decreasingFrpModal = document.getElementById('decreasingFrpModal');
+      var decreasingFrpCloseBtn = document.getElementById('decreasingFrpCloseBtn');
+      if (decreasingFrpInfoBtn && decreasingFrpModal && decreasingFrpCloseBtn) {
+        decreasingFrpInfoBtn.onclick = function() { decreasingFrpModal.style.display = 'flex'; };
+        decreasingFrpCloseBtn.onclick = function() { decreasingFrpModal.style.display = 'none'; };
+        decreasingFrpModal.onclick = function(e) { if (e.target === decreasingFrpModal) decreasingFrpModal.style.display = 'none'; };
+        decreasingFrpInfoBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { decreasingFrpInfoBtn.click(); e.preventDefault(); } });
+      }
     })();
 
     function updateSidebarStatusBanner() {
@@ -2049,6 +2761,164 @@
       playPauseIcon.textContent = isPlaying ? 'pause' : 'play_arrow';
       // ... your playback logic ...
     };
+
+    var geojsonLayer;
+    var bufferLayer;
+
+    function analyzeFRPTrends(features) {
+      // Group features by location (within 500m radius) to track FRP changes over time
+      const locationGroups = {};
+      const radius = 0.005; // ~500m in degrees
+      
+      features.forEach(feature => {
+        const lat = feature.geometry.coordinates[1];
+        const lng = feature.geometry.coordinates[0];
+        const frp = parseFloat(feature.properties.frp);
+        const date = feature.properties.acq_date;
+        const time = feature.properties.acq_time;
+        
+        if (isNaN(frp)) return;
+        
+        // Create a timestamp for sorting
+        const timestamp = date + 'T' + String(time).padStart(4, '0').slice(0,2) + ':' + String(time).padStart(4, '0').slice(2,4) + ':00Z';
+        
+        // Find or create location group
+        let foundGroup = false;
+        for (const groupKey in locationGroups) {
+          const [groupLat, groupLng] = groupKey.split(',').map(Number);
+          const distance = Math.sqrt(Math.pow(lat - groupLat, 2) + Math.pow(lng - groupLng, 2));
+          
+          if (distance <= radius) {
+            locationGroups[groupKey].push({
+              frp,
+              timestamp,
+              feature,
+              date,
+              time
+            });
+            foundGroup = true;
+            break;
+          }
+        }
+        
+        if (!foundGroup) {
+          const key = `${lat},${lng}`;
+          locationGroups[key] = [{
+            frp,
+            timestamp,
+            feature,
+            date,
+            time
+          }];
+        }
+      });
+      
+      // Analyze trends for each location group
+      const decreasingFRPLocations = new Set();
+      
+      Object.values(locationGroups).forEach(group => {
+        if (group.length < 2) return; // Need at least 2 observations for trend analysis
+        
+        // Sort by timestamp (oldest first)
+        group.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+        
+        // Calculate FRP trend over the last 3 observations (if available)
+        const recentObservations = group.slice(-3);
+        if (recentObservations.length >= 2) {
+          const firstFRP = recentObservations[0].frp;
+          const lastFRP = recentObservations[recentObservations.length - 1].frp;
+          const frpChange = lastFRP - firstFRP;
+          const percentChange = (frpChange / firstFRP) * 100;
+          
+          // Consider it decreasing if FRP dropped by more than 20% over the period
+          if (frpChange < 0 && percentChange < -20) {
+            // Mark all features in this location as decreasing FRP
+            group.forEach(obs => {
+              const key = `${obs.feature.geometry.coordinates[1]},${obs.feature.geometry.coordinates[0]}`;
+              decreasingFRPLocations.add(key);
+            });
+          }
+        }
+      });
+      
+      return decreasingFRPLocations;
+    }
+
+    // Add after map initialization and before loadHotspots()
+    window.currentHotspotLayer = L.layerGroup().addTo(map);
+    window.recentHotspotLayer = L.layerGroup().addTo(map);
+    window.spreadPathLayer = L.layerGroup().addTo(map);
+    window.highestFrpLayer = L.layerGroup().addTo(map);
+    window.decreasingFrpLayer = L.layerGroup().addTo(map);
+    window.radiusLayer = L.layerGroup().addTo(map);
+
+    // In loadHotspots(), after removing old layers, clear all LayerGroups
+    window.currentHotspotLayer.clearLayers();
+    window.recentHotspotLayer.clearLayers();
+    window.spreadPathLayer.clearLayers();
+    window.highestFrpLayer.clearLayers();
+    window.decreasingFrpLayer.clearLayers();
+    window.radiusLayer.clearLayers();
+
+    // Add this function
+    function toggleMapLayer(layer, show) {
+      switch(layer) {
+        case 'current':
+          show ? map.addLayer(window.currentHotspotLayer) : map.removeLayer(window.currentHotspotLayer);
+          break;
+        case 'recent':
+          show ? map.addLayer(window.recentHotspotLayer) : map.removeLayer(window.recentHotspotLayer);
+          break;
+        case 'spread':
+          if (show) {
+            map.addLayer(window.spreadPathLayer);
+            if (window.spreadPathArrows) {
+              map.addLayer(window.spreadPathArrows);
+            }
+          } else {
+            map.removeLayer(window.spreadPathLayer);
+            if (window.spreadPathArrows) {
+              map.removeLayer(window.spreadPathArrows);
+            }
+          }
+          break;
+        case 'frp':
+          show ? map.addLayer(window.highestFrpLayer) : map.removeLayer(window.highestFrpLayer);
+          break;
+        case 'decreasing':
+          show ? map.addLayer(window.decreasingFrpLayer) : map.removeLayer(window.decreasingFrpLayer);
+          break;
+        case 'radius':
+          show ? map.addLayer(window.radiusLayer) : map.removeLayer(window.radiusLayer);
+          break;
+      }
+    }
+
+    // Add event listeners to legend items
+    setTimeout(() => {
+      document.querySelectorAll('.legend__item').forEach(item => {
+        item.addEventListener('click', function() {
+          const layer = this.getAttribute('data-layer');
+          this.classList.toggle('legend__item--inactive');
+          toggleMapLayer(layer, !this.classList.contains('legend__item--inactive'));
+        });
+      });
+    }, 500);
+
+    // In loadHotspots(), after removing old layers, clear all LayerGroups
+    window.currentHotspotLayer.clearLayers();
+    window.recentHotspotLayer.clearLayers();
+    window.spreadPathLayer.clearLayers();
+    window.highestFrpLayer.clearLayers();
+    window.decreasingFrpLayer.clearLayers();
+    window.radiusLayer.clearLayers();
+
+    // In geojsonLayer pointToLayer, instead of returning marker, add to correct LayerGroup:
+    // - If isMostRecent: window.recentHotspotLayer.addLayer(marker)
+    // - Else: window.currentHotspotLayer.addLayer(marker)
+    // - If isMaxFrp: window.highestFrpLayer.addLayer(glow), window.highestFrpLayer.addLayer(star)
+    // - If isDecreasingFRP: window.decreasingFrpLayer.addLayer(decreasingGlow), window.decreasingFrpLayer.addLayer(arrow)
+    // - Always return marker
   </script>
 </body>
 </html> 
