@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Latakia Wildfire Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    /* --- Modern Google/Netflix-inspired UI --- */
+    html, body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f7fafd;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #map { height: 100vh; width: 100vw; }
+    .sidebar-unified {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 370px;
+      min-width: 220px;
+      max-width: 95vw;
+      height: 100vh;
+      background: #fff;
+      box-shadow: 2px 0 24px rgba(0,0,0,0.10);
+      z-index: 1400;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      border-right: 1px solid #e0e0e0;
+      pointer-events: auto;
+      border-radius: 0 24px 24px 0;
+      overflow: hidden;
+    }
+    .sidebar-status-banner {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 24px;
+      font-size: 15px;
+      font-weight: 600;
+      background: #f7fafd;
+      color: #388e3c;
+      border-bottom: 1px solid #e0e0e0;
+      letter-spacing: 0.01em;
+    }
+    .sidebar-status-banner.error {
+      background: #fff5f5;
+      color: #d32f2f;
+      border-bottom: 1.5px solid #d32f2f22;
+    }
+    .sidebar-status-banner .status-icon {
+      font-size: 22px;
+      margin-right: 2px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .sidebar-content {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0 0 0 0;
+      overflow-y: auto;
+    }
+    .sidebar-section {
+      padding: 28px 32px 0 32px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .sidebar-section:last-child {
+      border-bottom: none;
+      padding-bottom: 32px;
+    }
+    .sidebar-header {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1976d2;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      margin-top: 0;
+    }
+    .model-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f2f4f8;
+      border-radius: 999px;
+      padding: 6px 8px;
+      gap: 0;
+      margin-bottom: 0;
+      margin-top: 0;
+      box-shadow: 0 1px 4px #0001;
+      width: 100%;
+      max-width: 320px;
+      align-self: center;
+    }
+    .model-toggle-btn {
+      border: none;
+      background: none;
+      font-size: 15px;
+      font-weight: 600;
+      color: #888;
+      padding: 8px 22px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      outline: none;
+    }
+    .model-toggle-btn.active {
+      background: linear-gradient(90deg, #e3f0ff 0%, #f7fafd 100%);
+      color: #1976d2;
+      box-shadow: 0 2px 8px #1976d211;
+    }
+    .model-toggle-btn:focus {
+      outline: 2px solid #1976d2;
+    }
+    #currentModelLabel {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1976d2;
+      margin-left: 10px;
+      align-self: center;
+    }
+    .playback-card {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      padding: 0;
+      background: none;
+      border-radius: 0;
+      box-shadow: none;
+      width: 100%;
+    }
+    .apple-play-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f44336, #ff9800);
+      box-shadow: 0 2px 8px #f4433622;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.2s;
+    }
+    .apple-play-btn:hover, .apple-play-btn:focus {
+      box-shadow: 0 4px 16px #f4433640;
+      outline: none;
+    }
+    #playbackStatus {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1a1a1a;
+      white-space: nowrap;
+    }
+    .slider-card {
+      padding: 0;
+      background: none;
+      border-radius: 0;
+      box-shadow: none;
+      width: 100%;
+    }
+    #data-age-card {
+      font-size: 13px;
+      text-align: center;
+      width: 100%;
+      background: #f7fafd;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px #1976d211;
+      padding: 10px 0 8px 0;
+      margin: 0;
+      border: 1px solid #f0f0f0;
+    }
+    .provenance-card {
+      background: #f7fafd;
+      font-size: 13px;
+      color: #444;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px #4285f411;
+      padding: 14px 18px 10px 18px;
+      margin-top: 0;
+      margin-bottom: 0;
+      border-left: 3px solid #4285f4;
+      font-weight: 500;
+      width: 100%;
+    }
+    @media (max-width: 900px) {
+      .sidebar-unified {
+        width: 98vw;
+        min-width: 0;
+        max-width: 98vw;
+        border-radius: 0 0 24px 24px;
+      }
+      .sidebar-section {
+        padding: 18px 10px 0 18px;
+      }
+      .provenance-card, #data-age-card {
+        margin: 0 8px;
+      }
+    }
+    .ui-root {
+      left: 370px;
+      width: calc(100vw - 370px);
+    }
+    @media (max-width: 900px) {
+      .ui-root {
+        left: 0;
+        width: 100vw;
+      }
+    }
+    .legend.material-card {
+      position: absolute;
+      top: 48px;
+      right: 420px;
+      left: auto;
+      z-index: 1000;
+      max-width: 320px;
+      min-width: 220px;
+      text-align: left;
+      align-items: flex-start;
+      padding: 22px 24px 18px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1a;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #f0f0f0;
+      pointer-events: auto;
+    }
+    .legend h3 {
+      margin: 0 0 16px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(248, 249, 250, 0.8);
+      transition: background 0.2s ease;
+    }
+    .legend-item:hover {
+      background: rgba(248, 249, 250, 1);
+    }
+    .legend .marker-sample, .legend .marker-recent {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 12px;
+      box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
+      flex-shrink: 0;
+    }
+    .legend .marker-sample {
+      background: linear-gradient(135deg, #ff4444, #cc0000);
+      border: 3px solid #ffffff;
+    }
+    .legend .marker-recent {
+      background: linear-gradient(135deg, #ffd700, #ffb300);
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+    }
+    .legend .spread-path-sample {
+      width: 32px;
+      height: 8px;
+      background: linear-gradient(to right, #ffe066, #ff4444);
+      border-radius: 4px;
+      margin-right: 12px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .legend .spread-path-sample::after {
+      content: "▶";
+      position: absolute;
+      right: -8px;
+      top: -2px;
+      font-size: 10px;
+      color: #ff4444;
+    }
+    .legend-info {
+      font-size: 12px;
+      color: #666;
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(248, 249, 250, 0.6);
+      border-radius: 8px;
+      border-left: 3px solid #4285f4;
+    }
+    #legend-detection-times {
+      max-height: 180px;
+      overflow-y: auto;
+      background: rgba(248,249,250,0.7);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-top: 18px;
+    }
+    /* Map action buttons */
+    .map-actions {
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      z-index: 1300;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .map-action-btn {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      color: #1a1a1a;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .map-action-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    }
+    .map-action-btn:active {
+      transform: translateY(0);
+    }
+    /* Info panel styling */
+    .info-panel {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      padding: 24px;
+      font-size: 14px;
+      z-index: 1100;
+      max-width: 360px;
+      color: #1a1a1a;
+      display: none;
+    }
+    
+    .info-panel h3 {
+      margin: 0 0 16px 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .info-panel h3::before {
+      content: "ℹ️";
+      font-size: 20px;
+    }
+    
+    .info-panel ul {
+      margin: 16px 0;
+      padding-left: 20px;
+    }
+    
+    .info-panel li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    
+    .info-panel a {
+      color: #4285f4;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    
+    .info-panel a:hover {
+      color: #1a73e8;
+      text-decoration: underline;
+    }
+    
+    .info-panel-toggle {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1200;
+      background: linear-gradient(135deg, #4285f4, #1a73e8);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      font-size: 24px;
+      box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
+      cursor: pointer;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .info-panel-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(66, 133, 244, 0.4);
+    }
+    
+    .info-panel-toggle:active {
+      transform: translateY(0);
+    }
+    
+    /* Playback controls */
+    .playback-controls {
+      position: absolute;
+      left: 50%;
+      bottom: 100px;
+      transform: translateX(-50%);
+      z-index: 1200;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-radius: 28px;
+    }
+    
+    .playback-btn {
+      background: linear-gradient(135deg, #ea4335, #d93025);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(234, 67, 53, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .playback-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(234, 67, 53, 0.4);
+    }
+    
+    .playback-btn:active {
+      transform: translateY(0);
+    }
+    
+    #playbackStatus {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1a1a1a;
+      white-space: nowrap;
+    }
+    
+    /* Time slider */
+    .time-slider-container {
+      position: absolute;
+      left: 50%;
+      bottom: 40px;
+      transform: translateX(-50%);
+      z-index: 1200;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 280px;
+      border-radius: 20px;
+    }
+    
+    .time-slider {
+      width: 240px;
+      height: 6px;
+      border-radius: 3px;
+      background: #e0e0e0;
+      outline: none;
+      -webkit-appearance: none;
+      margin: 0 8px;
+    }
+    
+    .time-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4285f4, #1a73e8);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+      transition: all 0.2s ease;
+    }
+    
+    .time-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+    }
+    
+    .time-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4285f4, #1a73e8);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+    }
+    
+    .time-slider-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1a;
+      margin-top: 8px;
+    }
+    
+    /* Provenance */
+    .provenance {
+      position: absolute;
+      top: 90px;
+      left: 20px;
+      right: auto;
+      bottom: auto;
+      z-index: 1200;
+      padding: 16px 20px;
+      font-size: 13px;
+      color: #1a1a1a;
+      max-width: 360px;
+      border-radius: 12px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    
+    .provenance h4 {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .provenance h4::before {
+      content: "📊";
+      font-size: 16px;
+    }
+    
+    .provenance a { 
+      color: #4285f4; 
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    
+    .provenance a:hover {
+      color: #1a73e8;
+      text-decoration: underline;
+    }
+    
+    /* Map action buttons */
+    .map-actions {
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      z-index: 1300;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .map-action-btn {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      color: #1a1a1a;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .map-action-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    }
+    
+    .map-action-btn:active {
+      transform: translateY(0);
+    }
+    
+    /* Modal styling */
+    .about-modal {
+      display: none;
+      position: fixed;
+      left: 0; 
+      top: 0; 
+      width: 100vw; 
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      align-items: center; 
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .about-modal-content {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px 28px;
+      max-width: 480px;
+      margin: 40px auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      font-size: 15px;
+      color: #1a1a1a;
+      position: relative;
+      animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .about-modal h3 {
+      margin: 0 0 20px 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .about-modal h3::before {
+      content: "🌍";
+      font-size: 28px;
+    }
+    
+    .about-modal ul {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+    
+    .about-modal li {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    
+    .about-modal-close {
+      position: absolute;
+      top: 16px; 
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: #666;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    
+    .about-modal-close:hover {
+      background: rgba(0, 0, 0, 0.05);
+      color: #1a1a1a;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .legend { 
+        font-size: 13px; 
+        max-width: 90vw; 
+        padding: 16px 20px; 
+        top: 10px;
+        right: 10px;
+      }
+      
+      .info-panel { 
+        font-size: 13px; 
+        max-width: 95vw; 
+        padding: 20px; 
+        bottom: 10px;
+        right: 10px;
+      }
+      
+      .info-panel-toggle { 
+        width: 48px; 
+        height: 48px; 
+        font-size: 20px; 
+        bottom: 10px;
+        right: 10px;
+      }
+      
+      .playback-controls { 
+        padding: 12px 20px; 
+        bottom: 80px;
+      }
+      
+      .playback-btn { 
+        width: 48px; 
+        height: 48px; 
+        font-size: 20px; 
+      }
+      
+      .time-slider-container { 
+        padding: 12px 20px; 
+        min-width: 200px; 
+        bottom: 30px;
+      }
+      
+      .time-slider { 
+        width: 160px; 
+      }
+      
+      .provenance { 
+        font-size: 12px; 
+        max-width: 90vw; 
+        padding: 12px 16px; 
+        left: 10px;
+        bottom: 10px;
+        top: 80px;
+        right: auto;
+      }
+      
+      .about-modal-content { 
+        font-size: 14px; 
+        max-width: 95vw; 
+        padding: 24px 20px; 
+        margin: 20px;
+      }
+      
+      .map-action-btn { 
+        width: 44px; 
+        height: 44px; 
+        font-size: 18px; 
+        top: 10px;
+        left: 10px;
+      }
+      
+      .map-actions {
+        top: 10px;
+        left: 10px;
+        gap: 8px;
+      }
+    }
+    
+    /* Focus states for accessibility */
+    .map-action-btn:focus,
+    .playback-btn:focus,
+    .info-panel-toggle:focus,
+    .about-modal-close:focus {
+      outline: 2px solid #4285f4;
+      outline-offset: 2px;
+    }
+    
+    .time-slider:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.3);
+    }
+
+    /* Add engineering style for the slider in <style> */
+    .engineering-slider {
+      width: 98%;
+      height: 8px;
+      background: repeating-linear-gradient(90deg, #b0b0b0 0, #b0b0b0 2px, #e0e0e0 2px, #e0e0e0 10px);
+      border-radius: 2px;
+      outline: none;
+      margin: 0 1%;
+      -webkit-appearance: none;
+      appearance: none;
+      box-shadow: 0 1px 2px #bbb inset;
+    }
+    .engineering-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 2px;
+      background: #1976d2;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px #1976d2aa;
+      cursor: pointer;
+    }
+    .engineering-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 2px;
+      background: #1976d2;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px #1976d2aa;
+      cursor: pointer;
+    }
+    .engineering-ticks {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 1%;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 0.5px;
+      user-select: none;
+    }
+    /* Apple-style floating panel for all top-left controls */
+    .floating-panel {
+      position: absolute;
+      top: 180px;
+      left: 32px;
+      z-index: 1300;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 350px;
+      max-width: 95vw;
+      padding: 0;
+      background: none;
+      box-shadow: none;
+    }
+    .floating-panel .apple-play-btn {
+      width:54px;
+      height:54px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#f44336,#ff9800);
+      box-shadow:0 2px 8px #f4433622;
+      border:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:box-shadow 0.2s;
+    }
+    .floating-panel .apple-play-btn:hover, .floating-panel .apple-play-btn:focus {
+      box-shadow:0 4px 16px #f4433640;
+      outline:none;
+    }
+    .floating-panel .apple-slider {
+      -webkit-appearance:none;
+      appearance:none;
+      width:100%;
+      height:6px;
+      border-radius:3px;
+      background:#e0e0e0;
+      box-shadow:0 1px 2px #bbb inset;
+      outline:none;
+      margin:0;
+    }
+    .floating-panel .apple-slider::-webkit-slider-thumb {
+      -webkit-appearance:none;
+      appearance:none;
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      background:#1976d2;
+      border:3px solid #fff;
+      box-shadow:0 2px 8px #1976d2aa;
+      cursor:pointer;
+      transition:box-shadow 0.2s;
+    }
+    .floating-panel .apple-slider:focus::-webkit-slider-thumb {
+      box-shadow:0 0 0 4px #1976d233;
+    }
+    .floating-panel .apple-slider::-moz-range-thumb {
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      background:#1976d2;
+      border:3px solid #fff;
+      box-shadow:0 2px 8px #1976d2aa;
+      cursor:pointer;
+    }
+    .floating-panel .apple-ticks {
+      display:flex;
+      justify-content:space-between;
+      font-size:12px;
+      color:#888;
+      user-select:none;
+      letter-spacing:0.5px;
+      margin:0 2px;
+    }
+    .floating-panel .time-slider-label {
+      text-align:center;
+      font-size:15px;
+      font-weight:500;
+      color:#333;
+      margin-top:8px;
+    }
+    .floating-panel .provenance {
+      background:none;
+      box-shadow:none;
+      padding:0;
+      margin:0;
+      font-size:14px;
+    }
+    .floating-panel .provenance h4 {
+      margin:0 0 8px 0;
+      font-size:14px;
+      font-weight:600;
+      color:#1a1a1a;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .floating-panel .provenance h4::before {
+      content:"📊";
+      font-size:16px;
+    }
+    .floating-panel .provenance a {
+      color:#4285f4;
+      text-decoration:none;
+      font-weight:500;
+      transition:color 0.2s ease;
+    }
+    .floating-panel .provenance a:hover {
+      color:#1a73e8;
+      text-decoration:underline;
+    }
+    .floating-panel .provenance ul {
+      margin:0;
+      padding-left:0;
+    }
+    .floating-panel .provenance li {
+      margin-bottom:0;
+      line-height:1.5;
+    }
+    .floating-panel .provenance p {
+      margin-top:0;
+      margin-bottom:0;
+    }
+    .floating-panel .provenance .provenance-content {
+      margin-top:0;
+      margin-bottom:0;
+    }
+    .material-card {
+      background: rgba(255,255,255,0.98);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+      padding: 24px 24px 18px 24px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .playback-card {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+    }
+    .slider-card {
+      padding: 18px 24px 12px 24px;
+    }
+    /* Style for the Recent Fire Detection Times card to be scrollable and reduced in height */
+    #legend-detection-times {
+      max-height: 180px;
+      overflow-y: auto;
+      background: rgba(248,249,250,0.7);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-top: 18px;
+    }
+    .legend.material-card {
+      text-align: left;
+      align-items: flex-start;
+    }
+    @media (max-width: 900px) {
+      .ui-root, .floating-panel, .legend.material-card {
+        right: 2vw;
+        width: 98vw;
+        max-width: 98vw;
+      }
+      .legend.material-card {
+        top: 10px;
+        max-width: 98vw;
+        min-width: 0;
+        padding: 12px 10px 10px 10px;
+      }
+      .floating-panel {
+        margin-right: 2vw;
+      }
+    }
+    .sidebar-status {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 320px;
+      min-width: 220px;
+      max-width: 90vw;
+      height: 100vh;
+      background: #fff;
+      box-shadow: 2px 0 24px rgba(0,0,0,0.10);
+      z-index: 1400;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 0;
+      border-right: 1px solid #e0e0e0;
+      pointer-events: auto;
+    }
+    .sidebar-status-content {
+      margin: 48px 0 0 0;
+      padding: 32px 28px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .sidebar-status .status-icon {
+      font-size: 38px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .sidebar-status .status-success {
+      color: #388e3c;
+    }
+    .sidebar-status .status-error {
+      color: #d32f2f;
+    }
+    .sidebar-status .status-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .sidebar-status .status-time {
+      font-size: 14px;
+      color: #444;
+      margin-bottom: 0;
+    }
+    .sidebar-status .status-message {
+      font-size: 15px;
+      color: #d32f2f;
+      margin-top: 8px;
+      font-weight: 500;
+      word-break: break-word;
+    }
+    @media (max-width: 900px) {
+      .sidebar-status {
+        width: 98vw;
+        min-width: 0;
+        max-width: 98vw;
+        padding: 0;
+      }
+      .sidebar-status-content {
+        padding: 18px 10px 10px 18px;
+      }
+    }
+    .ui-root {
+      left: 320px;
+      width: calc(100vw - 320px);
+    }
+    @media (max-width: 900px) {
+      .ui-root {
+        left: 0;
+        width: 100vw;
+      }
+    }
+    .sidebar-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      padding: 0 0 32px 0;
+      align-items: stretch;
+      width: 100%;
+    }
+    .material-card {
+      margin-left: 32px;
+      margin-right: 32px;
+    }
+    @media (max-width: 900px) {
+      .sidebar-status, .sidebar-cards, .material-card {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .sidebar-cards {
+        gap: 14px;
+        padding: 0 0 18px 0;
+      }
+      .material-card {
+        margin: 0 8px;
+      }
+    }
+    .material-elevated {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 16px rgba(60,64,67,0.10), 0 1.5px 4px rgba(60,64,67,0.06);
+      padding: 14px 24px;
+      margin: 0;
+    }
+    .playback-fab {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1976d2 60%, #42a5f5 100%);
+      box-shadow: 0 2px 8px #1976d233;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.18s, background 0.18s;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .playback-fab:focus-visible {
+      box-shadow: 0 0 0 4px #1976d244, 0 2px 8px #1976d233;
+    }
+    .playback-fab:active {
+      background: linear-gradient(135deg, #1565c0 60%, #1976d2 100%);
+    }
+    .material-icons {
+      color: #fff;
+      font-size: 32px;
+      user-select: none;
+    }
+    .playback-label {
+      font-size: 16px;
+      font-weight: 500;
+      color: #1976d2;
+      letter-spacing: 0.01em;
+      margin-left: 8px;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="map" role="region" aria-label="Wildfire Map of Latakia"></div>
+  <div class="sidebar-unified">
+    <div class="sidebar-status-banner" id="sidebarStatusBanner">
+      <!-- Status banner will be injected here -->
+    </div>
+    <div class="sidebar-content">
+      <div class="sidebar-section" id="sidebarControls">
+        <div class="sidebar-header">Controls</div>
+        <div class="model-toggle">
+          <button class="model-toggle-btn active" id="viirsBtn" aria-label="Show VIIRS Data">VIIRS</button>
+          <button class="model-toggle-btn" id="modisBtn" aria-label="Show MODIS Data">MODIS</button>
+          <span id="currentModelLabel">Currently: VIIRS</span>
+        </div>
+        <div class="playback-card material-elevated">
+          <button class="playback-fab" id="playPauseBtn" title="Replay Last 10 Days" aria-label="Replay Last 10 Days" tabindex="0">
+            <span class="material-icons" id="playPauseIcon" style="font-size:32px;">play_arrow</span>
+          </button>
+          <span id="playbackStatus" class="playback-label">Replay Last 10 Days</span>
+        </div>
+        <div class="slider-card">
+          <input type="range" min="0" max="0" value="0" class="engineering-slider" id="timeSlider" aria-label="Time Slider" tabindex="0">
+          <div class="engineering-ticks" id="sliderTicks"></div>
+          <div class="time-slider-label" id="timeSliderLabel">Time: --</div>
+        </div>
+      </div>
+      <div class="sidebar-section" id="sidebarInfo">
+        <div class="sidebar-header">Info</div>
+        <div id="fetchStatusCard" class="material-card" style="margin-bottom:18px;"></div>
+        <div class="material-card" style="margin-bottom:18px; padding: 18px 20px;">
+          <h4 style="margin: 0 0 12px 0; font-size: 15px; font-weight: 600; color: #1a1a1a;">Satellite Fire Detection Accuracy</h4>
+          <div style="font-size: 13px; line-height: 1.5; color: #444;">
+            • Each point is a NASA VIIRS hotspot detected from space.<br>
+            • Location accuracy: typically within 375m (VIIRS pixel size).<br>
+            • <b>FRP</b> (Fire Radiative Power) estimates fire intensity in megawatts (MW); higher FRP means a hotter, more intense fire.<br>
+            • "Confidence" is a NASA-provided estimate of detection reliability.<br>
+            • <b>Wind direction</b> (if available) shows the prevailing wind at the time of detection.<br>
+            • <b>Risk Buffer</b>: Red shaded circles show 1km at-risk zones around each hotspot.<br>
+            • False positives are rare but possible (e.g., industrial heat, volcanoes).<br>
+            • Data updates every 15 minutes.
+          </div>
+        </div>
+        <div class="material-card" id="data-age-card"></div>
+        <div class="provenance-card" aria-label="Data Provenance and Quality" role="region">
+          NASA FIRMS API<br>
+          Bounding box: 35.0,35.0,36.0,36.0 <br>
+          Product: VIIRS_SNPP_NRT <br>
+          Days: 10<br>
+          Each hotspot shows confidence and timestamp in its popup.
+        </div>
++       <div class="material-card" style="background:#f7fafd;font-size:13px;color:#1976d2;margin-top:10px;padding:10px 16px 8px 16px;border-left:3px solid #1976d2;box-shadow:0 1px 4px #1976d211;">
++         <span style="font-weight:600;">Fire data is updated every 10 minutes (VIIRS & MODIS).</span>
++       </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui-root">
+    <div class="legend material-card" title="Legend: What do the map symbols mean?" role="region" aria-label="Map Legend">
+      <h3>Map Legend</h3>
+      <div class="legend-item">
+        <span class="marker-sample" title="Current Hotspot" aria-label="Current Hotspot"></span>
+        <span><b>Current Hotspot</b></span>
+      </div>
+      <div class="legend-item">
+        <span class="marker-recent" title="Most Recent Hotspot" aria-label="Most Recent Hotspot"></span>
+        <span><b>Most Recent Hotspot</b></span>
+      </div>
+      <div class="legend-item">
+        <span class="spread-path-sample" title="Spread Path" aria-label="Spread Path"></span>
+        <span><b>Spread Path</b> <span style="font-size:12px;color:#666;">(last 24 hrs)</span></span>
+      </div>
+      <div class="legend-info">
+        <b>Tap</b> a hotspot for details.<br>
+        <b>Pinch/Zoom</b> to explore.<br>
+        <b>Last Updated:</b> <span id="last-updated">--:--</span> UTC+3
+      </div>
+      <div id="legend-detection-times"></div>
+    </div>
+  </div>
+
+  <button class="info-panel-toggle material-card" id="infoToggle" title="Show wildfire info" aria-label="Show wildfire info" tabindex="0">ℹ</button>
+
+  <div class="about-modal" id="aboutModal" role="dialog" aria-modal="true" aria-label="About This Map">
+    <div class="about-modal-content">
+      <button class="about-modal-close" id="aboutCloseBtn" title="Close" aria-label="Close">×</button>
+      <h3>About This Wildfire Map</h3>
+      <ul>
+        <li>Shows real-time and recent wildfire hotspots in Latakia, Syria.</li>
+        <li>Data from NASA FIRMS VIIRS S-NPP, updated every 15 minutes.</li>
+        <li>Tap any hotspot for details: time, intensity, confidence, wind, and more.</li>
+        <li>Use the time slider and playback to explore fire movement over the last 10 days.</li>
+        <li>Toggle roads and populated places for risk context.</li>
+        <li>For emergencies, follow local authority instructions.</li>
+      </ul>
+      <div style="font-size:13px;color:#666;padding:12px;background:rgba(248,249,250,0.6);border-radius:8px;margin-top:16px;">
+        <b>Detection Limit:</b> Fires must be at least ~375m across to be detected.<br>
+        <b>Limitations:</b> Cloud cover, smoke, or terrain may hide fires. False positives are rare but possible (e.g., factories, volcanoes).<br>
+        <b>Recommended Actions:</b> Follow local evacuation orders. See <a href="#" style="color:#4285f4;">shelter locations</a> and <a href="#" style="color:#4285f4;">emergency contacts</a>.<br>
+        <b>Data Provenance:</b> NASA FIRMS API<br>
+        This map is for situational awareness only. For emergencies, call your local authorities.
+      </div>
+    </div>
+  </div>
+  <!-- NASA Data Info Modal -->
+  <div class="about-modal" id="nasaInfoModal" role="dialog" aria-modal="true" aria-label="About NASA VIIRS Fire Data">
+    <div class="about-modal-content" style="max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+      <button class="about-modal-close" id="nasaInfoCloseBtn" title="Close" aria-label="Close">×</button>
+      <h3>About NASA VIIRS Fire Data</h3>
+      <div style="flex:1; overflow-y: auto; padding: 0 2px 0 0; margin-bottom:12px; font-size:14px; color:#222; border-radius: 10px; padding-left: 8px; padding-right: 8px;">
+        <b>Latency:</b><br>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li>Global data: <b>within 3 hours</b> of satellite observation</li>
+          <li>Ultra/real-time (US/Canada): <b>1–30 minutes</b></li>
+        </ul>
+        <b>What is VIIRS?</b><br>
+        The Visible Infrared Imaging Radiometer Suite (VIIRS) detects active fires and thermal anomalies (e.g., wildfires, volcanoes, gas flares) at <b>375m resolution</b>. It provides improved detection of small fires and better mapping of large fire perimeters, especially at night.<br><br>
+        <b>Satellites:</b> Suomi NPP (S-NPP), NOAA-20 (JPSS-1), NOAA-21 (JPSS-2). These provide 3–4 observations per day in mid-latitudes.<br><br>
+        <b>Key Attributes:</b>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><b>Latitude/Longitude:</b> Center of the 375m fire pixel</li>
+          <li><b>Brightness:</b> Temperature of the fire pixel (Kelvin)</li>
+          <li><b>Acq_Date/Acq_Time:</b> Date and UTC time of detection</li>
+          <li><b>Confidence:</b> Quality of detection (low, nominal, high)</li>
+          <li><b>FRP:</b> Fire Radiative Power (megawatts, MW)</li>
+          <li><b>DayNight:</b> D = Daytime, N = Nighttime</li>
+        </ul>
+        <b>Confidence Levels:</b><br>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><b>Low (l):</b> Possible false alarms (e.g., sun glint, low anomaly)</li>
+          <li><b>Nominal (n):</b> Reliable detection</li>
+          <li><b>High (h):</b> Very reliable, saturated pixels</li>
+        </ul>
+        <b>Version:</b> Indicates data processing type:<br>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><b>URT</b> = Ultra Real-Time</li>
+          <li><b>RT</b> = Real-Time</li>
+          <li><b>NRT</b> = Near Real-Time</li>
+          <li>(no suffix) = Standard</li>
+        </ul>
+        <b>Limitations:</b><br>
+        Cloud cover, terrain, or satellite overpass timing may delay or prevent detection. Not all fires are detected instantly; some may appear hours after ignition.
+      </div>
+      <div style="font-size:13px;color:#666; padding: 8px 8px 0 8px;">For more details, see <a href="https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/viirs-nrt/" target="_blank" style="color:#4285f4;">NASA FIRMS VIIRS Fire Data</a>.</div>
+    </div>
+  </div>
+  <button class="log-panel-toggle material-card" id="logToggle" title="Show system logs" aria-label="Show system logs" tabindex="0" style="position:fixed;bottom:24px;right:24px;z-index:2001;width:56px;height:56px;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(66,133,244,0.18);background:linear-gradient(135deg,#222,#1976d2);color:#fff;cursor:pointer;">
+    <span style="font-size:28px;">📝</span>
+  </button>
+  <div class="log-modal" id="logModal" role="dialog" aria-modal="true" aria-label="System Logs" style="display:none;position:fixed;bottom:0;right:0;width:480px;max-width:98vw;height:60vh;max-height:90vh;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 8px 32px rgba(0,0,0,0.18);z-index:2002;overflow:hidden;flex-direction:column;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 8px 20px;background:#f7fafd;border-bottom:1px solid #e0e0e0;">
+      <span style="font-size:18px;font-weight:600;color:#1976d2;">System Logs</span>
+      <button id="logCloseBtn" title="Close" aria-label="Close" style="background:none;border:none;font-size:28px;color:#888;cursor:pointer;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.2s;">
+        ×
+      </button>
+    </div>
+    <pre id="logContent" style="flex:1;overflow-y:auto;padding:18px 20px 18px 20px;margin:0;font-size:13px;line-height:1.5;background:#fff;color:#222;font-family:Menlo,Monaco,Consolas,monospace;border:none;">Loading logs…</pre>
+  </div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
+  <script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script>
+  <script>
+    var map = L.map('map').setView([35.52, 35.78], 11); // Initial view, closer zoom
+    // Base layers
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 });
+    osm.addTo(map);
+
+    // Contextual overlays
+    var roads = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', { maxZoom: 18, opacity: 0.7, attribution: 'OSM Roads' });
+    // Example: Populated places (replace with your own GeoJSON for real data)
+    var populatedPlaces = L.geoJSON(null, {
+      pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, { radius: 6, fillColor: '#0074D9', color: '#005fa3', weight: 2, opacity: 1, fillOpacity: 0.7 });
+      },
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup('<b>Populated Place</b><br>' + (feature.properties.name || 'Name unknown'));
+      }
+    });
+    // Load a sample GeoJSON (replace URL with your own data source)
+    fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+      .then(res => res.json())
+      .then(data => {
+        // For demo, just add a few points in Latakia region
+        var features = data.features.filter(f => f.properties.ADMIN === 'Syria');
+        if (features.length > 0) {
+          // Add a few sample points
+          populatedPlaces.addData({
+            "type": "FeatureCollection",
+            "features": [
+              {"type": "Feature", "geometry": {"type": "Point", "coordinates": [35.780, 35.520]}, "properties": {"name": "Latakia City"}},
+              {"type": "Feature", "geometry": {"type": "Point", "coordinates": [35.960, 35.850]}, "properties": {"name": "Qardaha"}},
+              {"type": "Feature", "geometry": {"type": "Point", "coordinates": [36.000, 35.900]}, "properties": {"name": "Kessab"}}
+            ]
+          });
+        }
+      });
+
+    // Layer control
+    var overlayMaps = {
+      "Roads": roads,
+      "Populated Places": populatedPlaces
+    };
+    L.control.layers(null, overlayMaps, { collapsed: false, position: 'topright' }).addTo(map);
+
+    // Accuracy info is now in the sidebar
+
+    var geojsonLayer;
+    var bufferLayer;
+
+    function getColorByAge(hoursAgo) {
+      // Color gradient: 0h (now) = #ff0000, 24h = #ffe066, older = #cccccc
+      if (hoursAgo <= 1) return '#ff0000';
+      if (hoursAgo <= 6) return '#ff6600';
+      if (hoursAgo <= 12) return '#ffb300';
+      if (hoursAgo <= 24) return '#ffe066';
+      return '#cccccc';
+    }
+
+    let playbackInterval = null;
+    let playbackIndex = 1;
+    let playbackActive = false;
+    let spreadSegments = [];
+
+    function drawSpreadPath(features, upToIndex = null) {
+      // Remove previous lines and decorators
+      if (window.spreadPathLayer) {
+        map.removeLayer(window.spreadPathLayer);
+      }
+      if (window.spreadPathArrows) {
+        map.removeLayer(window.spreadPathArrows);
+      }
+      window.spreadPathLayer = L.layerGroup();
+      window.spreadPathArrows = L.layerGroup();
+      // Sort by time (oldest to newest)
+      const sorted = features.slice().sort((a, b) => {
+        const da = a.properties.acq_date + String(a.properties.acq_time).padStart(4, '0');
+        const db = b.properties.acq_date + String(b.properties.acq_time).padStart(4, '0');
+        return da.localeCompare(db);
+      });
+      spreadSegments = [];
+      for (let i = 1; i < sorted.length; i++) {
+        const prev = sorted[i-1];
+        const curr = sorted[i];
+        const currDate = new Date(curr.properties.acq_date + 'T' + String(curr.properties.acq_time).padStart(4, '0').slice(0,2) + ':' + String(curr.properties.acq_time).padStart(4, '0').slice(2,4) + ':00Z');
+        const hoursAgo = (Date.now() - currDate.getTime()) / (1000*60*60);
+        spreadSegments.push({
+          coords: [
+            [prev.geometry.coordinates[1], prev.geometry.coordinates[0]],
+            [curr.geometry.coordinates[1], curr.geometry.coordinates[0]]
+          ],
+          color: getColorByAge(hoursAgo)
+        });
+      }
+      // Draw up to upToIndex (or all if null)
+      let end = upToIndex === null ? spreadSegments.length : upToIndex;
+      for (let i = 0; i < end; i++) {
+        // Draw the spread path segment
+        L.polyline(spreadSegments[i].coords, {
+          color: spreadSegments[i].color,
+          weight: 6,
+          opacity: 0.45,
+          dashArray: '8,12',
+          interactive: false
+        }).addTo(window.spreadPathLayer);
+        // Draw arrowhead for direction using PolylineDecorator
+        var arrowDecorator = L.polylineDecorator(
+          L.polyline(spreadSegments[i].coords),
+          {
+            patterns: [
+              {
+                offset: '80%',
+                repeat: 0,
+                symbol: L.Symbol.arrowHead({
+                  pixelSize: 18,
+                  polygon: true,
+                  pathOptions: {
+                    stroke: true,
+                    color: '#222', // High-contrast outline
+                    weight: 4,
+                    opacity: 0.85
+                  }
+                })
+              },
+              {
+                offset: '80%',
+                repeat: 0,
+                symbol: L.Symbol.arrowHead({
+                  pixelSize: 12,
+                  polygon: true,
+                  pathOptions: {
+                    stroke: true,
+                    color: spreadSegments[i].color, // Fill matches segment
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 1,
+                    fill: true
+                  }
+                })
+              }
+            ]
+          }
+        );
+        arrowDecorator.addTo(window.spreadPathArrows);
+      }
+      window.spreadPathLayer.addTo(map);
+      window.spreadPathArrows.addTo(map);
+    }
+
+    function startPlayback(features) {
+      playbackActive = true;
+      playbackIndex = 1;
+      document.getElementById('playPauseBtn').textContent = '⏸';
+      document.getElementById('playbackStatus').textContent = 'Playing...';
+      drawSpreadPath(features, 1);
+      playbackInterval = setInterval(() => {
+        playbackIndex++;
+        if (playbackIndex > spreadSegments.length) {
+          clearInterval(playbackInterval);
+          playbackActive = false;
+          document.getElementById('playPauseBtn').textContent = '▶︎';
+          document.getElementById('playbackStatus').textContent = 'Replay Last 10 Days';
+          return;
+        }
+        drawSpreadPath(features, playbackIndex);
+      }, 350);
+    }
+
+    function stopPlayback(features) {
+      playbackActive = false;
+      clearInterval(playbackInterval);
+      drawSpreadPath(features);
+      document.getElementById('playPauseBtn').textContent = '▶︎';
+      document.getElementById('playbackStatus').textContent = 'Replay Last 10 Days';
+    }
+
+    let timeSlider = document.getElementById('timeSlider');
+    let timeSliderLabel = document.getElementById('timeSliderLabel');
+    let timeSliderContainer = document.getElementById('timeSliderContainer');
+    let timeSliderTimestamps = [];
+
+    function updateTimeSlider(features) {
+      // Get sorted unique timestamps by hour
+      const sorted = features.slice().sort((a, b) => {
+        const da = a.properties.acq_date + String(a.properties.acq_time).padStart(4, '0');
+        const db = b.properties.acq_date + String(b.properties.acq_time).padStart(4, '0');
+        return da.localeCompare(db);
+      });
+      // Map to hourly buckets in Syria time
+      let hourSet = new Set();
+      let hourLabels = [];
+      sorted.forEach(f => {
+        const d = f.properties.acq_date;
+        const t = String(f.properties.acq_time).padStart(4, '0');
+        const iso = d + 'T' + t.slice(0,2) + ':' + t.slice(2,4) + ':00Z';
+        const dt = new Date(iso);
+        let syriaDateTime = '--';
+        try {
+          const dateStr = dt.toLocaleDateString('en-CA', { timeZone: 'Asia/Damascus' });
+          const hourStr = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
+          syriaDateTime = dateStr + ' ' + hourStr;
+        } catch {}
+        if (!hourSet.has(syriaDateTime)) {
+          hourSet.add(syriaDateTime);
+          hourLabels.push(syriaDateTime);
+        }
+      });
+      timeSliderTimestamps = hourLabels;
+      timeSlider.min = 0;
+      timeSlider.max = hourLabels.length - 1;
+      timeSlider.value = hourLabels.length - 1;
+
+      // Render tick marks for every hour, but only label a few (start, middle, end, and maybe 1-2 in between)
+      let tickLabels = Array(hourLabels.length).fill('');
+      if (hourLabels.length > 0) {
+        tickLabels[0] = hourLabels[0].split(' ')[1];
+        tickLabels[hourLabels.length - 1] = hourLabels[hourLabels.length - 1].split(' ')[1];
+        if (hourLabels.length > 2) {
+          const mid = Math.floor(hourLabels.length / 2);
+          tickLabels[mid] = hourLabels[mid].split(' ')[1];
+        }
+        if (hourLabels.length > 4) {
+          const q1 = Math.floor(hourLabels.length / 4);
+          const q3 = Math.floor(3 * hourLabels.length / 4);
+          tickLabels[q1] = hourLabels[q1].split(' ')[1];
+          tickLabels[q3] = hourLabels[q3].split(' ')[1];
+        }
+      }
+      const ticks = tickLabels.map((label, i) => `<span style='flex:1;text-align:center;font-size:${label ? '12px' : '0'};color:#444;'>${label}</span>`).join('');
+      document.getElementById('sliderTicks').innerHTML = ticks;
+      updateTimeSliderLabel();
+    }
+
+    function updateTimeSliderLabel() {
+      if (timeSliderTimestamps.length === 0) {
+        timeSliderLabel.textContent = 'Time: --';
+      } else {
+        // Format: 'Time: 2025-07-11 11:00' (Syria time)
+        const val = timeSliderTimestamps[timeSlider.value];
+        timeSliderLabel.textContent = 'Time: ' + val;
+      }
+    }
+
+    timeSlider.oninput = function() {
+      if (window.lastHotspotFeatures) {
+        const idx = parseInt(timeSlider.value);
+        // If at the latest time, show all lines
+        if (idx === timeSliderTimestamps.length - 1) {
+          drawSpreadPath(window.lastHotspotFeatures);
+        } else {
+          // Only include features up to this time
+          const cutoff = timeSliderTimestamps[idx];
+          // Convert cutoff to comparable ISO string in Syria time
+          const cutoffDate = cutoff.split(' ')[0];
+          const cutoffTime = cutoff.split(' ')[1];
+          // Find all features up to and including this hour in Syria time
+          const filtered = window.lastHotspotFeatures.filter(f => {
+            const d = f.properties.acq_date;
+            const t = String(f.properties.acq_time).padStart(4, '0');
+            const iso = d + 'T' + t.slice(0,2) + ':' + t.slice(2,4) + ':00Z';
+            const dt = new Date(iso);
+            let syriaDateTime = '--';
+            try {
+              const dateStr = dt.toLocaleDateString('en-CA', { timeZone: 'Asia/Damascus' });
+              const hourStr = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
+              syriaDateTime = dateStr + ' ' + hourStr;
+            } catch {}
+            return syriaDateTime <= cutoff;
+          });
+          drawSpreadPath(filtered);
+        }
+        updateTimeSliderLabel();
+      }
+    };
+
+    // Model toggle logic
+    let currentModel = 'viirs';
+    const viirsBtn = document.getElementById('viirsBtn');
+    const modisBtn = document.getElementById('modisBtn');
+    const currentModelLabel = document.getElementById('currentModelLabel');
+
+    function setModel(model) {
+      currentModel = model;
+      if (model === 'viirs') {
+        viirsBtn.classList.add('active');
+        modisBtn.classList.remove('active');
+        currentModelLabel.textContent = 'Currently: VIIRS';
+      } else {
+        viirsBtn.classList.remove('active');
+        modisBtn.classList.add('active');
+        currentModelLabel.textContent = 'Currently: MODIS';
+      }
+      updateProvenanceCard();
+      loadHotspots();
+    }
+    viirsBtn.onclick = () => setModel('viirs');
+    modisBtn.onclick = () => setModel('modis');
+
+    function updateProvenanceCard() {
+      const prov = document.querySelector('.provenance-card');
+      if (currentModel === 'viirs') {
+        prov.innerHTML = `NASA FIRMS API<br>Bounding box: 35.0,35.0,36.0,36.0 <br>Product: <b>VIIRS_SNPP_NRT</b> <br>Days: 10<br>Each hotspot shows confidence and timestamp in its popup.`;
+      } else {
+        prov.innerHTML = `NASA FIRMS API<br>Bounding box: 35.0,35.0,36.0,36.0 <br>Product: <b>MODIS_NRT</b> <br>Days: 10<br>Each hotspot shows confidence and timestamp in its popup.`;
+      }
+    }
+
+    function loadHotspots() {
+      fetch(`http://localhost:5000/hotspots?model=${currentModel}`)
+        .then(res => res.json())
+        .then(data => {
+          // Use all features from the past 10 days (no filtering)
+          const allFeatures = data.features;
+          if (geojsonLayer) {
+            map.removeLayer(geojsonLayer);
+          }
+          if (bufferLayer) {
+            map.removeLayer(bufferLayer);
+          }
+          if (window.spreadPathLayer) {
+            map.removeLayer(window.spreadPathLayer);
+          }
+          if (window.spreadPathArrows) {
+            map.removeLayer(window.spreadPathArrows);
+          }
+          // Draw risk buffer (1km) around each hotspot
+          bufferLayer = L.layerGroup();
+          allFeatures.forEach(function(feature) {
+            var coords = feature.geometry.coordinates;
+            var circle = L.circle([coords[1], coords[0]], {
+              radius: 1000, // 1km in meters
+              color: '#ff0000',
+              fillColor: '#ff0000',
+              fillOpacity: 0.18,
+              weight: 1,
+              interactive: false
+            });
+            bufferLayer.addLayer(circle);
+          });
+          bufferLayer.addTo(map);
+          // Draw spread path (with playback support)
+          drawSpreadPath(allFeatures);
+          // Find the most recent acq_date/acq_time in all data
+          let mostRecent = null;
+          let mostRecentTime = null;
+          allFeatures.forEach(f => {
+            const d = f.properties.acq_date;
+            const t = f.properties.acq_time;
+            if (d && t) {
+              const dt = d + 'T' + String(t).padStart(4, '0').slice(0,2) + ':' + String(t).padStart(4, '0').slice(2,4);
+              if (!mostRecentTime || dt > mostRecentTime) {
+                mostRecentTime = dt;
+                mostRecent = f;
+              }
+            }
+          });
+          // Store last update timestamp globally (from all data)
+          if (mostRecent && mostRecent.properties.acq_date && mostRecent.properties.acq_time) {
+            var d = mostRecent.properties.acq_date;
+            var t = String(mostRecent.properties.acq_time).padStart(4, '0');
+            window.lastUpdateTimestamp = d + 'T' + t.slice(0,2) + ':' + t.slice(2,4) + ':00Z';
+          } else {
+            window.lastUpdateTimestamp = null; // Clear if no recent data
+          }
+          updateDataAgeCard();
+          // Update last updated time in legend to Syria time and show data age (from all data)
+          if (window.lastUpdateTimestamp) {
+            var dt = new Date(window.lastUpdateTimestamp);
+            try {
+              var syriaTime = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
+              // Calculate data age
+              var nowSyriaTime = new Date();
+              var nowSyria = new Date(nowSyriaTime.toLocaleString('en-US', { timeZone: 'Asia/Damascus' }));
+              var diffMs = nowSyria - dt;
+              var diffMins = Math.floor(diffMs / 60000);
+              var diffHours = Math.floor(diffMins / 60);
+              var mins = diffMins % 60;
+              var ageStr = '';
+              if (diffHours > 0) {
+                ageStr = diffHours + 'h ' + mins + 'm ago';
+              } else {
+                ageStr = mins + 'm ago';
+              }
+              document.getElementById('last-updated').textContent = syriaTime + ' Syria Time (' + ageStr + ')';
+            } catch {
+              document.getElementById('last-updated').textContent = '--:--';
+            }
+          } else {
+            document.getElementById('last-updated').textContent = '--:--';
+          }
+          // Build a list of all detection times in Syria time (from all data)
+          var detectionTimesSyria = [];
+          allFeatures.forEach(function(feature) {
+            var d = feature.properties.acq_date;
+            var t = feature.properties.acq_time ? String(feature.properties.acq_time).padStart(4, '0') : null;
+            if (d && t) {
+              var iso = d + 'T' + t.slice(0,2) + ':' + t.slice(2,4) + ':00Z';
+              var dt = new Date(iso);
+              try {
+                var syriaTime = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
+                detectionTimesSyria.push({iso, label: `${d} ${syriaTime}`});
+              } catch {
+                detectionTimesSyria.push({iso, label: `${d} (time error)`});
+              }
+            }
+          });
+          // Sort so most recent is first
+          detectionTimesSyria.sort((a, b) => b.iso.localeCompare(a.iso));
+          // Update the legend with the list of detection times (from all data)
+          var legendTimesBlock = document.getElementById('legend-detection-times');
+          if (!legendTimesBlock) {
+            // If not present, create and insert it
+            legendTimesBlock = document.createElement('div');
+            legendTimesBlock.id = 'legend-detection-times';
+            legendTimesBlock.style.marginTop = '18px';
+            legendTimesBlock.style.fontSize = '13px';
+            legendTimesBlock.style.background = 'rgba(248,249,250,0.7)';
+            legendTimesBlock.style.borderRadius = '8px';
+            legendTimesBlock.style.padding = '10px 12px';
+            legendTimesBlock.style.maxHeight = '180px';
+            legendTimesBlock.style.overflowY = 'auto';
+            var legend = document.querySelector('.legend');
+            legend.appendChild(legendTimesBlock);
+          }
+          legendTimesBlock.innerHTML = `<b>Recent Fire Detection Times<br>(Syria Time, UTC+3)</b><ul style='margin:6px 0 0 16px;padding:0;'>${detectionTimesSyria.map(t => `<li>${t.label}</li>`).join('')}</ul>`;
+          // Use allFeatures for geojsonLayer and slider
+          geojsonLayer = L.geoJSON({ type: 'FeatureCollection', features: allFeatures }, {
+            pointToLayer: function (feature, latlng) {
+              // Highlight the most recent point
+              let isMostRecent = false;
+              if (mostRecent && feature.properties.acq_date === mostRecent.properties.acq_date && feature.properties.acq_time === mostRecent.properties.acq_time) {
+                isMostRecent = true;
+              }
+              return L.circleMarker(latlng, isMostRecent ? {
+                radius: 14,
+                fillColor: "#ffd700", // Gold/yellow
+                color: "#ff9900", // Orange border
+                weight: 3,
+                opacity: 1,
+                fillOpacity: 0.98
+              } : {
+                radius: 12,
+                fillColor: "#ff0000",
+                color: "#b30000",
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.95
+              });
+            },
+            onEachFeature: function (feature, layer) {
+              var p = feature.properties;
+              // Wind direction arrow (if available)
+              var windArrow = '';
+              if (p.wind_direction !== undefined && p.wind_direction !== null && p.wind_direction !== '') {
+                windArrow = `<span style=\"display:inline-block;transform:rotate(${p.wind_direction}deg);font-size:18px;vertical-align:middle;\">🡺</span> (${p.wind_direction}&deg;)`;
+              } else {
+                windArrow = '<span style=\"color:#888;\">Not available</span>';
+              }
+              // Confidence legend and warning
+              var confLegend = `<span style='color:#388e3c;'>h = High</span>, <span style='color:#fbc02d;'>n = Nominal</span>, <span style='color:#d32f2f;'>l = Low</span>`;
+              var confWarn = '';
+              if (p.confidence && p.confidence.toLowerCase() === 'l') {
+                confWarn = `<div style='color:#d32f2f;font-weight:500;margin-top:4px;'>⚠️ Low confidence: This detection may be a false alarm.</div>`;
+              }
+              // Day/Night label
+              var dayNight = (p.daynight === 'D') ? 'Daytime' : (p.daynight === 'N' ? 'Nighttime' : 'Unknown');
+              // Detection time in Syria time
+              var detectionTimeSyria = '—';
+              if (p.acq_date && p.acq_time) {
+                var t = String(p.acq_time).padStart(4, '0');
+                var iso = p.acq_date + 'T' + t.slice(0,2) + ':' + t.slice(2,4) + ':00Z';
+                var dt = new Date(iso);
+                try {
+                  detectionTimeSyria = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
+                } catch {}
+              }
+              // Popup HTML
+              var popup = `
+                <div style='font-size:15px;line-height:1.6;max-width:340px;'>
+                  <div style='font-weight:600;font-size:16px;margin-bottom:4px;'>🔥 Wildfire Hotspot Detected</div>
+                  <div style='color:#444;font-size:13px;margin-bottom:8px;'>This location was detected as a possible wildfire by NASA's VIIRS satellite.</div>
+                  <div><b>🗓 Date:</b> ${p.acq_date || '—'}</div>
+                  <div><b>⏰ Detection Time (Syria):</b> ${detectionTimeSyria}</div>
+                  <div><b>🌡 Brightness:</b> ${p.brightness || '—'} <span style='color:#888;font-size:12px;'>(higher = hotter fire)</span></div>
+                  <div><b>🔥 Fire Radiative Power (FRP):</b> ${p.frp || '—'} MW <a href='https://earthdata.nasa.gov/faq/firms-faq#frp' target='_blank' style='color:#4285f4;font-size:12px;'>What is FRP?</a></div>
+                  <div style='margin-top:6px;'><b>🔍 Confidence:</b> ${p.confidence || '—'} <span style='font-size:12px;'>(${confLegend})</span> <a href='https://earthdata.nasa.gov/faq/firms-faq#confidence' target='_blank' style='color:#4285f4;font-size:12px;'>What does this mean?</a></div>
+                  ${confWarn}
+                  <div><b>🌗 Detected:</b> ${dayNight}</div>
+                  <div><b>💨 Wind Direction:</b> ${windArrow}</div>
+                  <div style='margin-top:10px;font-size:12px;color:#666;'>
+                    <b>FRP</b> = Fire Radiative Power, an estimate of fire intensity in megawatts (MW).<br>
+                    <b>Confidence</b> is the satellite's estimate of detection reliability.<br>
+                    Wind direction is from meteorological data, if available.
+                  </div>
+                </div>
+              `;
+              layer.bindPopup(popup);
+            }
+          }).addTo(map);
+          // Center map on all hotspots if they exist
+          if (allFeatures && allFeatures.length > 0) {
+            // Create bounds from all hotspot coordinates
+            var bounds = L.latLngBounds();
+            allFeatures.forEach(function(feature) {
+              var coords = feature.geometry.coordinates;
+              bounds.extend([coords[1], coords[0]]);
+            });
+            // Fit map to show all hotspots with some padding
+            map.fitBounds(bounds, {
+              padding: [20, 20],
+              maxZoom: 12,
+              animate: true
+            });
+          }
+          // Add playback controls event
+          document.getElementById('playPauseBtn').onclick = function() {
+            if (!playbackActive) {
+              startPlayback(allFeatures);
+            } else {
+              stopPlayback(allFeatures);
+            }
+          };
+          window.lastHotspotFeatures = allFeatures; // Store for time slider
+          updateTimeSlider(allFeatures); // Initialize time slider
+        });
+    }
+
+    // Initial load
+    loadHotspots();
+
+    // Refresh every 60 seconds (60000 ms)
+    setInterval(loadHotspots, 60000);
+
+    // Info panel toggle logic
+    const infoToggle = document.getElementById('infoToggle');
+    const infoPanel = document.getElementById('infoPanel');
+    infoToggle.addEventListener('click', function() {
+      if (infoPanel.style.display === 'none') {
+        infoPanel.style.display = 'block';
+        infoToggle.textContent = '×';
+        infoToggle.title = 'Hide wildfire info';
+      } else {
+        infoPanel.style.display = 'none';
+        infoToggle.textContent = 'i';
+        infoToggle.title = 'Show wildfire info';
+      }
+    });
+
+    // Keyboard accessibility for info panel and playback controls
+    infoToggle.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        infoToggle.click();
+        e.preventDefault();
+      }
+    });
+    document.getElementById('playPauseBtn').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        document.getElementById('playPauseBtn').click();
+        e.preventDefault();
+      }
+    });
+    timeSlider.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+        timeSlider.value = Math.max(parseInt(timeSlider.value) - 1, parseInt(timeSlider.min));
+        timeSlider.oninput();
+        e.preventDefault();
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+        timeSlider.value = Math.min(parseInt(timeSlider.value) + 1, parseInt(timeSlider.max));
+        timeSlider.oninput();
+        e.preventDefault();
+      }
+    });
+
+    // --- Add/update this function to update the data-age-card ---
+    function updateDataAgeCard() {
+      var card = document.getElementById('data-age-card');
+      if (!window.lastUpdateTimestamp) {
+        card.textContent = 'Last Updated: --:-- Syria Time (-- ago)';
+        return;
+      }
+      var dt = new Date(window.lastUpdateTimestamp);
+      try {
+        var syriaTime = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
+        var nowSyriaTime = new Date();
+        var nowSyria = new Date(nowSyriaTime.toLocaleString('en-US', { timeZone: 'Asia/Damascus' }));
+        var diffMs = nowSyria - dt;
+        var diffMins = Math.floor(diffMs / 60000);
+        var diffHours = Math.floor(diffMins / 60);
+        var mins = diffMins % 60;
+        var ageStr = '';
+        if (diffHours > 0) {
+          ageStr = diffHours + 'h ' + mins + 'm ago';
+        } else {
+          ageStr = mins + 'm ago';
+        }
+        card.textContent = `Last Updated: ${syriaTime} Syria Time (${ageStr})`;
+      } catch {
+        card.textContent = 'Last Updated: --:-- Syria Time (-- ago)';
+      }
+    }
+
+    // --- Set up a timer to update the card every minute ---
+    setInterval(updateDataAgeCard, 60000);
+
+    function updateFetchStatusCard() {
+      fetch('http://localhost:5000/fetch_status')
+        .then(res => res.json())
+        .then(data => {
+          const card = document.getElementById('fetchStatusCard');
+          if (data.status === 'success') {
+            card.innerHTML = `<span style='color: #388e3c; font-weight: 600;'>✔ Last fetch successful</span><br><span style='color:#444;'>${data.timestamp ? 'at ' + new Date(data.timestamp).toLocaleString() : ''}</span>`;
+            card.style.borderLeft = '4px solid #388e3c';
+            card.style.background = 'rgba(232, 245, 233, 0.95)';
+          } else {
+            card.innerHTML = `<span style='color: #d32f2f; font-weight: 600;'>✖ Fetch error</span><br><span style='color:#d32f2f;'>${data.message || 'Unknown error.'}</span><br><span style='color:#444;'>${data.timestamp ? 'at ' + new Date(data.timestamp).toLocaleString() : ''}</span>`;
+            card.style.borderLeft = '4px solid #d32f2f';
+            card.style.background = 'rgba(255, 235, 238, 0.95)';
+          }
+        })
+        .catch(() => {
+          const card = document.getElementById('fetchStatusCard');
+          card.innerHTML = `<span style='color: #d32f2f; font-weight: 600;'>✖ Could not load fetch status</span>`;
+          card.style.borderLeft = '4px solid #d32f2f';
+          card.style.background = 'rgba(255, 235, 238, 0.95)';
+        });
+    }
+    updateFetchStatusCard();
+    setInterval(updateFetchStatusCard, 60000);
+
+    // Modal logic for Help/About and NASA Data Info
+    (function() {
+      // Help/About modal logic
+      var helpBtn = document.getElementById('helpBtn');
+      var aboutModal = document.getElementById('aboutModal');
+      var aboutCloseBtn = document.getElementById('aboutCloseBtn');
+      if (helpBtn && aboutModal && aboutCloseBtn) {
+        helpBtn.onclick = function() { aboutModal.style.display = 'flex'; };
+        aboutCloseBtn.onclick = function() { aboutModal.style.display = 'none'; };
+        aboutModal.onclick = function(e) { if (e.target === aboutModal) aboutModal.style.display = 'none'; };
+        helpBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { helpBtn.click(); e.preventDefault(); } });
+      }
+      // NASA Data Info modal logic
+      var nasaInfoBtn = document.getElementById('nasaInfoBtn');
+      var nasaInfoModal = document.getElementById('nasaInfoModal');
+      var nasaInfoCloseBtn = document.getElementById('nasaInfoCloseBtn');
+      if (nasaInfoBtn && nasaInfoModal && nasaInfoCloseBtn) {
+        nasaInfoBtn.onclick = function() { nasaInfoModal.style.display = 'flex'; };
+        nasaInfoCloseBtn.onclick = function() { nasaInfoModal.style.display = 'none'; };
+        nasaInfoModal.onclick = function(e) { if (e.target === nasaInfoModal) nasaInfoModal.style.display = 'none'; };
+        nasaInfoBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { nasaInfoBtn.click(); e.preventDefault(); } });
+      }
+    })();
+
+    function updateSidebarStatusBanner() {
+      fetch('http://localhost:5000/fetch_status')
+        .then(res => res.json())
+        .then(data => {
+          const el = document.getElementById('sidebarStatusBanner');
+          if (data.status === 'success') {
+            el.className = 'sidebar-status-banner';
+            el.innerHTML = `<span class="status-icon">✔️</span> Data Pipeline Healthy <span style='font-weight:400;font-size:13px;margin-left:auto;'>Last fetch: ${data.timestamp ? new Date(data.timestamp).toLocaleString() : ''}</span>`;
+          } else {
+            el.className = 'sidebar-status-banner error';
+            el.innerHTML = `<span class="status-icon">✖️</span> Data Pipeline Error <span style='font-weight:400;font-size:13px;margin-left:auto;'>${data.message || 'Unknown error.'}</span>`;
+          }
+        })
+        .catch(() => {
+          const el = document.getElementById('sidebarStatusBanner');
+          el.className = 'sidebar-status-banner error';
+          el.innerHTML = `<span class="status-icon">✖️</span> Could not load status`;
+        });
+    }
+    updateSidebarStatusBanner();
+    setInterval(updateSidebarStatusBanner, 60000);
+
+    // --- Log Panel Popup ---
+    const logToggle = document.getElementById('logToggle');
+    const logModal = document.getElementById('logModal');
+    const logCloseBtn = document.getElementById('logCloseBtn');
+    const logContent = document.getElementById('logContent');
+    let logInterval = null;
+    function fetchLogs() {
+      fetch('http://localhost:5000/logs')
+        .then(res => res.text())
+        .then(text => { logContent.textContent = text; logContent.scrollTop = logContent.scrollHeight; })
+        .catch(() => { logContent.textContent = 'Could not load logs.'; });
+    }
+    logToggle.onclick = function() {
+      logModal.style.display = 'flex';
+      fetchLogs();
+      logInterval = setInterval(fetchLogs, 5000);
+    };
+    logCloseBtn.onclick = function() {
+      logModal.style.display = 'none';
+      clearInterval(logInterval);
+    };
+    logToggle.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { logToggle.click(); e.preventDefault(); }
+    });
+    logCloseBtn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { logCloseBtn.click(); e.preventDefault(); }
+    });
+    // Accessibility: close modal with Escape
+    document.addEventListener('keydown', function(e) {
+      if (logModal.style.display === 'flex' && e.key === 'Escape') {
+        logModal.style.display = 'none';
+        clearInterval(logInterval);
+      }
+    });
+    // --- Playback FAB icon toggle ---
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    let isPlaying = false;
+    playPauseBtn.onclick = function() {
+      isPlaying = !isPlaying;
+      playPauseIcon.textContent = isPlaying ? 'pause' : 'play_arrow';
+      // ... your playback logic ...
+    };
+  </script>
+</body>
+</html> 
