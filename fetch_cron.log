@@ -1,2 +1,218 @@
 /Users/naiefjobsen/Documents/latakia-fires/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
   warnings.warn(
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 11:53:32 UTC …
+✅ [VIIRS] Retrieved 362 records.
+   • Newest detection: 2025-07-11 23:50:00 UTC
+   • Approx. latency: 723 min
+✅ [MODIS] Retrieved 222 records.
+   • Newest detection: 2025-07-11 18:02:00 UTC
+   • Approx. latency: 1071 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 12:08:34 UTC …
+✅ [VIIRS] Retrieved 362 records.
+   • Newest detection: 2025-07-11 23:50:00 UTC
+   • Approx. latency: 738 min
+✅ [MODIS] Retrieved 222 records.
+   • Newest detection: 2025-07-11 18:02:00 UTC
+   • Approx. latency: 1086 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 12:23:36 UTC …
+✅ [VIIRS] Retrieved 362 records.
+   • Newest detection: 2025-07-11 23:50:00 UTC
+   • Approx. latency: 753 min
+✅ [MODIS] Retrieved 222 records.
+   • Newest detection: 2025-07-11 18:02:00 UTC
+   • Approx. latency: 1101 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 12:38:42 UTC …
+✅ [VIIRS] Retrieved 362 records.
+   • Newest detection: 2025-07-11 23:50:00 UTC
+   • Approx. latency: 768 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 83 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 12:53:44 UTC …
+✅ [VIIRS] Retrieved 362 records.
+   • Newest detection: 2025-07-11 23:50:00 UTC
+   • Approx. latency: 783 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 98 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 13:08:46 UTC …
+✅ [VIIRS] Retrieved 364 records.
+   • Newest detection: 2025-07-12 09:30:00 UTC
+   • Approx. latency: 218 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 113 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 13:23:48 UTC …
+✅ [VIIRS] Retrieved 364 records.
+   • Newest detection: 2025-07-12 09:30:00 UTC
+   • Approx. latency: 233 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 128 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 13:38:50 UTC …
+✅ [VIIRS] Retrieved 364 records.
+   • Newest detection: 2025-07-12 09:30:00 UTC
+   • Approx. latency: 248 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 143 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 13:53:58 UTC …
+✅ [VIIRS] Retrieved 364 records.
+   • Newest detection: 2025-07-12 09:30:00 UTC
+   • Approx. latency: 263 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 158 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 14:08:59 UTC …
+✅ [VIIRS] Retrieved 364 records.
+   • Newest detection: 2025-07-12 09:30:00 UTC
+   • Approx. latency: 279 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 174 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 14:24:01 UTC …
+✅ [VIIRS] Retrieved 364 records.
+   • Newest detection: 2025-07-12 09:30:00 UTC
+   • Approx. latency: 294 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 189 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 14:39:03 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 209 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 204 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 14:54:06 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 224 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 219 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 15:09:09 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 239 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 234 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 15:24:11 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 254 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 249 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 15:39:18 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 269 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 264 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 15:54:25 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 284 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 279 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 16:09:27 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 299 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 294 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 16:24:31 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 314 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 309 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 16:39:33 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 329 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 324 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 16:54:35 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 344 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 339 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 17:09:37 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 359 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 354 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 17:24:39 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 374 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 369 min
+⏱  Sleeping 15 minutes …
+
+🔄  Fetching latest hotspots for all models at 2025-07-12 17:39:41 UTC …
+✅ [VIIRS] Retrieved 379 records.
+   • Newest detection: 2025-07-12 11:10:00 UTC
+   • Approx. latency: 389 min
+✅ [MODIS] Retrieved 223 records.
+   • Newest detection: 2025-07-12 11:15:00 UTC
+   • Approx. latency: 384 min
+⏱  Sleeping 15 minutes …

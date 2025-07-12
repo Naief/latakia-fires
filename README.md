@@ -17,6 +17,7 @@ graph TD
     subgraph User
       D
     end
+    D -->|Legend/Info Modals| E[Legend Info Modals]
 ```
 
 ---
@@ -41,8 +42,21 @@ graph TD
 - **Testing**: Modular, type-annotated, and ready for unit testing
 
 ### 3. **Web Interface** (`index.html`)
-- **Modern, accessible UI**: Apple/Netflix/Leaf-inspired, responsive, ARIA, keyboard nav
+- **Modern, accessible UI**: Google/Material/Apple/Netflix-inspired, responsive, ARIA, keyboard nav
 - **Map**: Leaflet.js with VIIRS/MODIS toggle, time slider, playback, provenance, etc.
+- **Legend**: Fully interactive, Material-style legend with:
+    - Clickable items to toggle map layers (current, recent, spread path, highest FRP, decreasing FRP, risk buffer)
+    - Info icons (ℹ) for every legend item, opening detailed modals explaining each map symbol and its significance
+    - Custom icons for each item, including a buffer+hotspot icon for risk buffer
+- **Info Modals**: Each legend item has a dedicated, accessible modal with:
+    - Clear definition, visual characteristics, data significance, and usage tips
+    - Color-coded headers and sections
+    - Emergency and operational guidance
+    - Consistent, modern design
+- **Risk Buffer**: 1km red translucent circle around each hotspot, with a new icon in the legend and a detailed info modal
+- **Spread Path**: Directional arrows and color-coded lines show fire movement; toggled together from the legend
+- **Decreasing FRP**: Green glow and down arrow for dying-out fires, with legend and info modal
+- **Highest FRP**: Blue glow and star badge for the most intense fire, with legend and info modal
 - **Live Log Popup**: Floating button opens a modal showing live logs from `/logs` (polls every 5s)
 - **All times in Syria time**
 - **No unused code or overlays**
@@ -91,53 +105,39 @@ Set up a cron job to run the fetcher every 15 minutes:
 
 ---
 
+## Key NASA FIRMS Resources & API Endpoints
+
+- [NASA FIRMS Fire Map (Latakia, 24hrs)](https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@35.99,35.87,13.66z)
+- [NASA FIRMS Area API Documentation](https://firms.modaps.eosdis.nasa.gov/api/area/)
+- [Sample Area API Call (VIIRS, World, 2025-07-11)](https://firms.modaps.eosdis.nasa.gov/api/area/html/3d47c7709150c515edb9beb54ac9832a/VIIRS_SNPP_NRT/world/1/2025-07-11)
+
+---
+
+## Running the System: Required Endpoints & Automation
+
+To run the full wildfire mapping system, ensure the following are running and accessible:
+
+- **Flask API Endpoints:**
+    - [http://localhost:5000/hotspots?model=viirs](http://localhost:5000/hotspots?model=viirs)  
+      (GeoJSON for VIIRS fire hotspots)
+    - [http://localhost:5000/hotspots?model=modis](http://localhost:5000/hotspots?model=modis)  
+      (GeoJSON for MODIS fire hotspots)
+    - [http://localhost:5000/fetch_status](http://localhost:5000/fetch_status)  
+      (JSON status of last data fetch)
+    - [http://localhost:5000/logs](http://localhost:5000/logs)  
+      (Live logs)
+- **Frontend:**
+    - Open `index.html` in your browser (or access via the Flask server if served statically)
+- **Backend (optional):**
+    - [http://[::]:8000/](http://[::]:8000/)  
+      (If running an additional backend service, e.g., for advanced analytics)
+- **Automation:**
+    - Set up a **cron job** to run `fetch_hotspots.py` every 15 minutes to keep the data fresh and the map up to date. See the 'Getting Started' section above for a sample cron entry.
+
+> **Note:** The Flask API and the data fetcher must be running for the map and endpoints to function correctly. The cron job ensures the latest NASA FIRMS data is always available for the frontend and API.
+
+---
+
 ## Usage
 
-- **Map**: Open `index.html` in your browser. The map loads fire hotspots and updates automatically.
-- **Toggle**: Switch between VIIRS and MODIS data with the sidebar toggle.
-- **Playback**: Use the time slider and playback controls to explore fire spread.
-- **Live Logs**: Click the 📝 button (bottom right) to view live logs (fetches, API calls, errors, etc.).
-- **Status**: Sidebar shows last fetch status and errors.
-
----
-
-## Best Practices
-
-- **Type hints and docstrings** in all Python code
-- **Rotating logs** for both fetcher and API
-- **Error handling** for all file/network operations
-- **Testing**: Add unit tests for fetcher and API endpoints
-- **Accessibility**: ARIA, keyboard nav, high contrast, responsive
-- **No unused code or files**
-- **Clear documentation and diagrams**
-
----
-
-## Troubleshooting
-
-- **No data on map?** Check `fetch_status.json` and logs via the log popup or `/logs` endpoint.
-- **API not responding?** Check `api.log` and ensure Flask is running on port 5000.
-- **Cron not running?** Check `fetch_cron.log` and `fetcher.log` for errors.
-- **Frontend errors?** Open browser dev tools and check network/log popup.
-
----
-
-## Contributing
-
-- Bug reports, feature requests, and improvements are welcome!
-- Please follow code style and documentation standards.
-
----
-
-## License
-
-MIT License. See LICENSE file.
-
----
-
-## Acknowledgments
-
-- NASA FIRMS for satellite fire detection data
-- Leaflet.js for interactive mapping
-- OpenStreetMap for base map data
-- The open-source community for tools and libraries
+- **Map**: Open `
