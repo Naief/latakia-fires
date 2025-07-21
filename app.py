@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Response
+from flask import Flask, jsonify, request, Response, send_from_directory
 import pandas as pd
 from flask_cors import CORS
 import json
@@ -6,6 +6,8 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 from typing import Dict, Any
+import webbrowser
+import threading
 
 app = Flask(__name__)
 CORS(app)
@@ -98,6 +100,16 @@ def logs() -> Response:
     combined = f"--- API LOG ---\n{api_log}\n--- FETCHER LOG ---\n{fetcher_log}"
     return Response(combined, mimetype="text/plain")
 
+# Serve index.html at the root URL
+@app.route('/')
+def serve_frontend():
+    return send_from_directory('.', 'index.html')
+
+# Serve other static files (e.g., JS, CSS) from the project root
+@app.route('/<path:path>')
+def static_proxy(path):
+    return send_from_directory('.', path)
+
 @app.errorhandler(404)
 def not_found(e):
     logger.warning(f"404 Not Found: {request.path}")
@@ -108,5 +120,9 @@ def internal_error(e):
     logger.error(f"500 Internal Server Error: {e}")
     return jsonify({"error": "Internal server error"}), 500
 
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0") 
+def open_browser():
+    webbrowser.open_new('http://localhost:5000/')
+
+if __name__ == '__main__':
+    threading.Timer(1.25, open_browser).start()
+    app.run() 

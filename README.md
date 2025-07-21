@@ -73,6 +73,17 @@ graph TD
 
 ---
 
+## Data Freshness and Fire Detection Logic
+
+- **Last fetch**: This is the time your system last checked for new fire data from NASA FIRMS (shown as 'Data Pipeline Healthy' or 'Last fetch'). It indicates when the data pipeline was last run, not when a fire was last detected.
+- **Recent Fire Detection Times**: These are the timestamps of the most recent fire detections in the downloaded data. They reflect when NASA satellites last observed a fire in the area, not when your system fetched the data.
+
+**Important:**
+- If there are no new fires detected by NASA, the 'Recent Fire Detection Times' will remain unchanged, even as the 'Last fetch' time updates with each successful data pipeline run.
+- The app now hides all hotspots and displays a popup message ('No fires detected!') if there are no recent fire detections in the data. This ensures the map only shows active or very recent fires, and avoids displaying outdated hotspots.
+
+---
+
 ## Getting Started
 
 ### 1. Prerequisites
@@ -141,3 +152,13 @@ To run the full wildfire mapping system, ensure the following are running and ac
 ## Usage
 
 - **Map**: Open `
+```
+import webbrowser
+import threading
+
+def open_browser():
+    webbrowser.open_new('http://localhost:5000/')
+
+if __name__ == '__main__':
+    threading.Timer(1.25, open_browser).start()
+    app.run()

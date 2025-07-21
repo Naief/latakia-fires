@@ -70,6 +70,16 @@ def fetch_and_report(model: str) -> bool:
             write_status(status)
             return False
         df = pd.read_csv(fname)
+        if df.empty:
+            # Overwrite with just the header if no data rows
+            if model == "viirs":
+                header = "latitude,longitude,bright_ti4,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_ti5,frp,daynight\n"
+            else:
+                header = "latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_t31,frp,daynight\n"
+            with open(fname, "w") as f:
+                f.write(header)
+            logger.info(f"[{model.upper()}] No hotspots found. Overwrote {fname} with header only.")
+            return True
         df['timestamp'] = pd.to_datetime(
             df['acq_date'].astype(str) + ' ' + df['acq_time'].astype(str).str.zfill(4),
             format='%Y-%m-%d %H%M'

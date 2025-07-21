@@ -2460,23 +2460,29 @@
         const db = b.properties.acq_date + String(b.properties.acq_time).padStart(4, '0');
         return da.localeCompare(db);
       });
-      // Map to hourly buckets in Syria time
+      // Map to hourly buckets in Syria time, but only include those within the last 30 days
       let hourSet = new Set();
       let hourLabels = [];
+      const now = new Date();
       sorted.forEach(f => {
         const d = f.properties.acq_date;
         const t = String(f.properties.acq_time).padStart(4, '0');
         const iso = d + 'T' + t.slice(0,2) + ':' + t.slice(2,4) + ':00Z';
         const dt = new Date(iso);
-        let syriaDateTime = '--';
-        try {
-          const dateStr = dt.toLocaleDateString('en-CA', { timeZone: 'Asia/Damascus' });
-          const hourStr = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
-          syriaDateTime = dateStr + ' ' + hourStr;
-        } catch {}
-        if (!hourSet.has(syriaDateTime)) {
-          hourSet.add(syriaDateTime);
-          hourLabels.push(syriaDateTime);
+        // Convert to Syria time
+        const syriaTime = new Date(dt.toLocaleString('en-US', { timeZone: 'Asia/Damascus' }));
+        const diffDays = (now - syriaTime) / (1000 * 60 * 60 * 24);
+        if (diffDays <= 30) {
+          let syriaDateTime = '--';
+          try {
+            const dateStr = dt.toLocaleDateString('en-CA', { timeZone: 'Asia/Damascus' });
+            const hourStr = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
+            syriaDateTime = dateStr + ' ' + hourStr;
+          } catch {}
+          if (!hourSet.has(syriaDateTime)) {
+            hourSet.add(syriaDateTime);
+            hourLabels.push(syriaDateTime);
+          }
         }
       });
       timeSliderTimestamps = hourLabels;
@@ -2583,47 +2589,16 @@
       fetch(`http://localhost:5000/hotspots?model=${currentModel}`)
         .then(res => res.json())
         .then(data => {
-          // Use all features from the past 10 days (no filtering)
-          const allFeatures = data.features;
-          // Find the highest FRP value
-          let maxFrp = null;
-          allFeatures.forEach(f => {
-            const frp = parseFloat(f.properties.frp);
-            if (!isNaN(frp) && (maxFrp === null || frp > maxFrp)) {
-              maxFrp = frp;
-            }
-          });
-          if (geojsonLayer) {
-            map.removeLayer(geojsonLayer);
+          const features = data.features;
+          if (features.length === 0) {
+            showNoFiresPopup();
+            // ...
+            return;
           }
-          if (bufferLayer) {
-            map.removeLayer(bufferLayer);
-          }
-          if (window.spreadPathLayer) {
-            map.removeLayer(window.spreadPathLayer);
-          }
-          if (window.spreadPathArrows) {
-            map.removeLayer(window.spreadPathArrows);
-          }
-          // Draw risk buffer (1km) around each hotspot
-          allFeatures.forEach(function(feature) {
-            var coords = feature.geometry.coordinates;
-            var circle = L.circle([coords[1], coords[0]], {
-              radius: 1000, // 1km in meters
-              color: '#ff0000',
-              fillColor: '#ff0000',
-              fillOpacity: 0.08,
-              weight: 1,
-              interactive: false
-            });
-            window.radiusLayer.addLayer(circle);
-          });
-          // Draw spread path (with playback support)
-          drawSpreadPath(allFeatures);
-          // Find the most recent acq_date/acq_time in all data
+          // Find the most recent detection date
           let mostRecent = null;
           let mostRecentTime = null;
-          allFeatures.forEach(f => {
+          features.forEach(f => {
             const d = f.properties.acq_date;
             const t = f.properties.acq_time;
             if (d && t) {
@@ -2634,256 +2609,26 @@
               }
             }
           });
-          // Store last update timestamp globally (from all data)
-          if (mostRecent && mostRecent.properties.acq_date && mostRecent.properties.acq_time) {
-            var d = mostRecent.properties.acq_date;
-            var t = String(mostRecent.properties.acq_time).padStart(4, '0');
-            window.lastUpdateTimestamp = d + 'T' + t.slice(0,2) + ':' + t.slice(2,4) + ':00Z';
-          } else {
-            window.lastUpdateTimestamp = null; // Clear if no recent data
-          }
-          updateDataAgeCard();
-          // Update last updated time in legend to Syria time and show data age (from all data)
-          if (window.lastUpdateTimestamp) {
-            var dt = new Date(window.lastUpdateTimestamp);
-            try {
-              var syriaTime = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
-              // Calculate data age
-              var nowSyriaTime = new Date();
-              var nowSyria = new Date(nowSyriaTime.toLocaleString('en-US', { timeZone: 'Asia/Damascus' }));
-              var diffMs = nowSyria - dt;
-              var diffMins = Math.floor(diffMs / 60000);
-              var diffHours = Math.floor(diffMins / 60);
-              var mins = diffMins % 60;
-              var ageStr = '';
-              if (diffHours > 0) {
-                ageStr = diffHours + 'h ' + mins + 'm ago';
-              } else {
-                ageStr = mins + 'm ago';
-              }
-              document.getElementById('last-updated').textContent = syriaTime + ' Syria Time (' + ageStr + ')';
-            } catch {
-              document.getElementById('last-updated').textContent = '--:--';
-            }
-          } else {
-            document.getElementById('last-updated').textContent = '--:--';
-          }
-          // Build a list of all detection times in Syria time (from all data)
-          var detectionTimesSyria = [];
-          allFeatures.forEach(function(feature) {
-            var d = feature.properties.acq_date;
-            var t = feature.properties.acq_time ? String(feature.properties.acq_time).padStart(4, '0') : null;
-            if (d && t) {
-              var iso = d + 'T' + t.slice(0,2) + ':' + t.slice(2,4) + ':00Z';
-              var dt = new Date(iso);
-              try {
-                var syriaTime = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
-                detectionTimesSyria.push({iso, label: `${d} ${syriaTime}`});
-              } catch {
-                detectionTimesSyria.push({iso, label: `${d} (time error)`});
-              }
-            }
-          });
-          // Sort so most recent is first
-          detectionTimesSyria.sort((a, b) => b.iso.localeCompare(a.iso));
-          // Update the legend with the list of detection times (from all data)
+          // Add sidebar/legend message
           var legendTimesBlock = document.getElementById('legend-detection-times');
           if (legendTimesBlock) {
-            var timesList = legendTimesBlock.querySelector('.legend__times-list');
-            if (timesList) {
-              timesList.innerHTML = detectionTimesSyria.map(t => `<li>${t.label}</li>`).join('');
-            }
-          }
-          // Analyze FRP trends to identify decreasing fires
-          const decreasingFRPLocations = analyzeFRPTrends(allFeatures);
-          
-          // Use allFeatures for geojsonLayer and slider
-          geojsonLayer = L.geoJSON({ type: 'FeatureCollection', features: allFeatures }, {
-            pointToLayer: function (feature, latlng) {
-              // Highlight the most recent point
-              let isMostRecent = false;
-              if (mostRecent && feature.properties.acq_date === mostRecent.properties.acq_date && feature.properties.acq_time === mostRecent.properties.acq_time) {
-                isMostRecent = true;
-              }
-              // Highlight highest FRP
-              let isMaxFrp = false;
-              let frp = parseFloat(feature.properties.frp);
-              if (!isNaN(frp) && frp === maxFrp) {
-                isMaxFrp = true;
-              }
-              // Check if this location has decreasing FRP
-              const coords = feature.geometry.coordinates;
-              const locationKey = `${coords[1]},${coords[0]}`;
-              const isDecreasingFRP = decreasingFRPLocations.has(locationKey);
-              let marker = L.circleMarker(latlng, isMostRecent ? {
-                radius: 11, // was 14
-                fillColor: "#ffd700", // Gold/yellow
-                color: "#ff9900", // Orange border
-                weight: 3,
-                opacity: 1,
-                fillOpacity: 0.98
-              } : {
-                radius: 8, // was 12
-                fillColor: "#ff0000",
-                color: "#b30000",
-                weight: 2,
-                opacity: 1,
-                fillOpacity: 0.95
-              });
-              if (isMaxFrp) {
-                // Add a glowing blue ring
-                let glow = L.circleMarker(latlng, {
-                  radius: 18,
-                  color: '#1976d2',
-                  weight: 4,
-                  opacity: 0.7,
-                  fill: false,
-                  interactive: false,
-                  pane: 'markerPane'
-                });
-                window.highestFrpLayer.addLayer(glow);
-                // Add a star badge overlay
-                let starIcon = L.divIcon({
-                  className: '',
-                  html: '<span style="font-size:22px;color:#1976d2;text-shadow:0 0 6px #fff,0 0 2px #1976d2;position:relative;top:-8px;left:-8px;">★</span>',
-                  iconSize: [24, 24],
-                  iconAnchor: [12, 12]
-                });
-                let star = L.marker(latlng, { icon: starIcon, interactive: false, pane: 'markerPane' });
-                window.highestFrpLayer.addLayer(star);
-              }
-              
-              if (isDecreasingFRP) {
-                // Add a glowing green ring for decreasing FRP
-                let decreasingGlow = L.circleMarker(latlng, {
-                  radius: 16,
-                  color: '#4caf50',
-                  weight: 3,
-                  opacity: 0.8,
-                  fill: false,
-                  interactive: false,
-                  pane: 'markerPane'
-                });
-                window.decreasingFrpLayer.addLayer(decreasingGlow);
-                // Add a down arrow badge overlay
-                let arrowIcon = L.divIcon({
-                  className: '',
-                  html: '<span style="font-size:18px;color:#4caf50;text-shadow:0 0 6px #fff,0 0 2px #4caf50;position:relative;top:-6px;left:-6px;font-weight:bold;">↓</span>',
-                  iconSize: [20, 20],
-                  iconAnchor: [10, 10]
-                });
-                let arrow = L.marker(latlng, { icon: arrowIcon, interactive: false, pane: 'markerPane' });
-                window.decreasingFrpLayer.addLayer(arrow);
-              }
-              if (isMostRecent) {
-                window.recentHotspotLayer.addLayer(marker);
+            var msg = '';
+            if (mostRecentTime) {
+              var dt = new Date(mostRecent.properties.acq_date + 'T' + String(mostRecent.properties.acq_time).padStart(4, '0').slice(0,2) + ':' + String(mostRecent.properties.acq_time).padStart(4, '0').slice(2,4) + ':00Z');
+              var syriaDate = dt.toLocaleDateString('en-CA', { timeZone: 'Asia/Damascus' });
+              var syriaTime = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
+              var now = new Date();
+              var nowSyria = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Damascus' }));
+              var diffDays = Math.floor((nowSyria - dt) / (1000 * 60 * 60 * 24));
+              if (diffDays >= 1) {
+                msg = `<div style='color:#d32f2f;font-weight:600;margin-bottom:6px;'>No new fires detected since ${syriaDate}.</div><div style='color:#1976d2;'>Last fire detection: ${syriaDate} ${syriaTime} (Syria Time)</div>`;
               } else {
-                window.currentHotspotLayer.addLayer(marker);
+                msg = `<div style='color:#388e3c;font-weight:600;margin-bottom:6px;'>Active fires detected.</div><div style='color:#1976d2;'>Last fire detection: ${syriaDate} ${syriaTime} (Syria Time)</div>`;
               }
-              return marker;
-            },
-            onEachFeature: function (feature, layer) {
-              var p = feature.properties;
-              // Wind direction arrow (if available)
-              var windArrow = '';
-              if (p.wind_direction !== undefined && p.wind_direction !== null && p.wind_direction !== '') {
-                windArrow = `<span style=\"display:inline-block;transform:rotate(${p.wind_direction}deg);font-size:18px;vertical-align:middle;\">🡺</span> (${p.wind_direction}&deg;)`;
-              } else {
-                windArrow = '<span style=\"color:#888;\">Not available</span>';
-              }
-              // Confidence legend and warning
-              var confLegend = `<span style='color:#388e3c;'>h = High</span>, <span style='color:#fbc02d;'>n = Nominal</span>, <span style='color:#d32f2f;'>l = Low</span>`;
-              var confWarn = '';
-              if (p.confidence && p.confidence.toLowerCase() === 'l') {
-                confWarn = `<div style='color:#d32f2f;font-weight:500;margin-top:4px;'>⚠️ Low confidence: This detection may be a false alarm.</div>`;
-              }
-              // Day/Night label
-              var dayNight = (p.daynight === 'D') ? 'Daytime' : (p.daynight === 'N' ? 'Nighttime' : 'Unknown');
-              // Detection time in Syria time
-              var detectionTimeSyria = '—';
-              if (p.acq_date && p.acq_time) {
-                var t = String(p.acq_time).padStart(4, '0');
-                var iso = p.acq_date + 'T' + t.slice(0,2) + ':' + t.slice(2,4) + ':00Z';
-                var dt = new Date(iso);
-                try {
-                  detectionTimeSyria = dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Damascus' });
-                } catch {}
-              }
-              // Check if this location has decreasing FRP
-              const coords = feature.geometry.coordinates;
-              const locationKey = `${coords[1]},${coords[0]}`;
-              const isDecreasingFRP = decreasingFRPLocations.has(locationKey);
-              
-              // Dynamic FRP analogies
-              var frpVal = parseFloat(p.frp);
-              var heaters = isNaN(frpVal) ? '—' : Math.round(frpVal * 1000).toLocaleString();
-              var cars = isNaN(frpVal) ? '—' : Math.round(frpVal * 10).toLocaleString();
-              var turbines = isNaN(frpVal) ? '—' : (frpVal / 3).toFixed(1);
-              // Estimate flame height
-              var flameHeight = '—';
-              var flameFloors = '—';
-              if (!isNaN(frpVal)) {
-                var firelineIntensity = frpVal * 300; // kW/m
-                var meters = 0.0775 * Math.pow(firelineIntensity, 0.46);
-                flameHeight = meters.toFixed(1);
-                flameFloors = Math.max(1, Math.round(meters / 3));
-              }
-              // Popup HTML
-              var popup = `
-                <div style='font-size:15px;line-height:1.6;max-width:340px;'>
-                  <div style='font-weight:600;font-size:16px;margin-bottom:4px;'>🔥 Wildfire Hotspot Detected</div>
-                  <div style='color:#444;font-size:13px;margin-bottom:8px;'>This location was detected as a possible wildfire by NASA's VIIRS satellite.</div>
-                  <div><b>🗓 Date:</b> ${p.acq_date || '—'}</div>
-                  <div><b>⏰ Detection Time (Syria):</b> ${detectionTimeSyria}</div>
-                  <div><b>🌡 Brightness:</b> ${p.brightness || '—'} <span style='color:#888;font-size:12px;'>(higher = hotter fire)</span></div>
-                  <div><b>🔥 Fire Radiative Power (FRP):</b> ${p.frp || '—'} MW <a href='https://earthdata.nasa.gov/faq/firms-faq#frp' target='_blank' style='color:#4285f4;font-size:12px;'>What is FRP?</a></div>
-                  <div style='background:#f7fafd;border-left:3px solid #1976d2;padding:8px 12px 8px 12px;margin:8px 0 4px 0;font-size:13px;color:#1976d2;border-radius:8px;'>
-                    This is as much heat as about <b>${heaters} household heaters</b>, <b>${cars} car engines</b>, or <b>${turbines} large wind turbines</b>.<br>
-                    Estimated flame height: <b>${flameHeight} meters</b> (about <b>${flameFloors} floors</b> up a building)
-                  </div>
-                  ${isDecreasingFRP ? `<div style='background:#f1f8e9;border-left:3px solid #4caf50;padding:8px 12px 8px 12px;margin:8px 0 4px 0;font-size:13px;color:#2e7d32;border-radius:8px;'>
-                    <b>🔥 Fire Status: Decreasing Intensity</b><br>
-                    This fire appears to be dying out based on decreasing FRP values over time. This could indicate successful firefighting efforts or natural fire behavior.
-                  </div>` : ''}
-                  <div style='margin-top:6px;'><b>�� Confidence:</b> ${p.confidence || '—'} <span style='font-size:12px;'>(${confLegend})</span> <a href='https://earthdata.nasa.gov/faq/firms-faq#confidence' target='_blank' style='color:#4285f4;font-size:12px;'>What does this mean?</a></div>
-                  ${confWarn}
-                  <div><b>🌗 Detected:</b> ${dayNight}</div>
-                  <div><b>💨 Wind Direction:</b> ${windArrow}</div>
-                  <div style='margin-top:10px;font-size:12px;color:#666;'>
-                    <b>FRP</b> = Fire Radiative Power, an estimate of fire intensity in megawatts (MW).<br>
-                    <b>Confidence</b> is the satellite's estimate of detection reliability.<br>
-                    Wind direction is from meteorological data, if available.
-                  </div>
-                </div>
-              `;
-              layer.bindPopup(popup);
             }
-          }).addTo(map);
-          // Center map on all hotspots if they exist
-          if (allFeatures && allFeatures.length > 0) {
-            // Create bounds from all hotspot coordinates
-            var bounds = L.latLngBounds();
-            allFeatures.forEach(function(feature) {
-              var coords = feature.geometry.coordinates;
-              bounds.extend([coords[1], coords[0]]);
-            });
-            // Fit map to show all hotspots with some padding
-            map.fitBounds(bounds, {
-              padding: [20, 20],
-              maxZoom: 12,
-              animate: true
-            });
+            legendTimesBlock.insertAdjacentHTML('afterbegin', msg);
           }
-          // Add playback controls event
-          document.getElementById('playPauseBtn').onclick = function() {
-            if (!playbackActive) {
-              startPlayback(allFeatures);
-            } else {
-              stopPlayback(allFeatures);
-            }
-          };
-          window.lastHotspotFeatures = allFeatures; // Store for time slider
-          updateTimeSlider(allFeatures); // Initialize time slider
+          // ... rest of your code ...
         });
     }
 
@@ -3296,6 +3041,34 @@
     // - If isMaxFrp: window.highestFrpLayer.addLayer(glow), window.highestFrpLayer.addLayer(star)
     // - If isDecreasingFRP: window.decreasingFrpLayer.addLayer(decreasingGlow), window.decreasingFrpLayer.addLayer(arrow)
     // - Always return marker
+
+    // Add this function near the other modal logic
+    function showNoFiresPopup(msg) {
+      if (document.getElementById('noFiresModal')) return;
+      var modal = document.createElement('div');
+      modal.className = 'about-modal';
+      modal.id = 'noFiresModal';
+      modal.style.display = 'flex';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-label', 'No Fires Detected');
+      modal.innerHTML = `
+        <div class="about-modal-content" style="max-width: 340px; text-align: center;">
+          <button class="about-modal-close" id="noFiresCloseBtn" title="Close" aria-label="Close">×</button>
+          <h3 style="margin-bottom: 18px;">No Fires Detected!</h3>
+          <div style="font-size: 16px; color: #1976d2; margin-bottom: 12px;">${msg || 'There are no active or recent fire hotspots.'}</div>
+          <div style="font-size: 13px; color: #666;">NASA satellites have not detected any new fires in the monitored area.<br>Check back later for updates.</div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      var closeBtn = document.getElementById('noFiresCloseBtn');
+      closeBtn.onclick = function() { modal.remove(); };
+      closeBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { modal.remove(); e.preventDefault(); } });
+      modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
+      document.addEventListener('keydown', function escHandler(e) {
+        if (modal.parentNode && e.key === 'Escape') { modal.remove(); document.removeEventListener('keydown', escHandler); }
+      });
+    }
   </script>
 </body>
 </html> 
