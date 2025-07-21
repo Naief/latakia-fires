@@ -2,23 +2,7 @@
 
 ## Architecture Overview
 
-```mermaid
-graph TD
-    A[NASA FIRMS API] -->|CSV Download| B[Data Fetcher (fetch_hotspots.py)]
-    B -->|hotspots_viirs.csv| C[Flask API (app.py)]
-    B -->|hotspots_modis.csv| C
-    B -->|fetch_status.json| C
-    B -->|fetcher.log| C
-    C -->|GeoJSON, Status JSON| D[Leaflet Frontend (index.html)]
-    C -->|/logs| D
-    C -->|api.log| D
-    D -->|AJAX| C
-    D -->|Live Log Polling| C
-    subgraph User
-      D
-    end
-    D -->|Legend/Info Modals| E[Legend Info Modals]
-```
+<!-- Removed broken Mermaid diagram -->
 
 ---
 
