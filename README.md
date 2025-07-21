@@ -1,5 +1,48 @@
 # Latakia Wildfire Early-Warning & Mapping System
 
+## Quick Start
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/Naief/latakia-fires.git
+   cd latakia-fires
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Add your NASA FIRMS API key to a `.env` file:
+   ```
+   MAP_KEY=your_nasa_firms_api_key_here
+   ```
+4. Run the data fetcher:
+   ```bash
+   python fetch_hotspots.py
+   ```
+5. Start the web server:
+   ```bash
+   python app.py
+   ```
+6. Open [http://localhost:5000](http://localhost:5000) in your browser.
+
+---
+
+> **Note:** Do not commit your `.env` file or API keys to public repositories. `.env` is already in `.gitignore`.
+
+---
+
+## Cloud & Container Deployment
+- You can deploy this app on cloud platforms (Heroku, DigitalOcean, AWS, etc.) or containerize it with Docker.
+- For static frontend hosting, consider Netlify or Vercel. For full-stack, deploy Flask on a cloud server.
+
+---
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+---
+
 ## Architecture Overview
 
 <!-- Removed broken Mermaid diagram -->
